@@ -1,4 +1,4 @@
-from ubuntu:xenial-20170119
+from openskope/gdal
 
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -23,3 +23,13 @@ RUN echo "***** install R directly from CRAN apt server *****"                  
  && gpg -a --export E084DAB9 |  apt-key add -                                                       \
  && apt-get -y update                                                                               \
  && apt-get -y install r-base
+
+RUN echo '***** install R packages needed by PaleoCAR *****'                                        \
+ && export PATH=$PATH:/opt/gdal/gdal-2.1.2/bin/                                                     \
+ && export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/gdal/gdal-2.1.2/lib/                               \
+ && echo 'install.packages(c("rgdal", "survival", "devtools"), repos="http://cran.us.r-project.org")'\
+    > /tmp/packages.R                                                                               \
+ && R --no-save < /tmp/packages.R
+
+RUN echo 'devtools::install_github("bocinsky/paleocar")' > /tmp/install_paleocar.R                  \
+ && R --no-save < /tmp/install_paleocar.R
