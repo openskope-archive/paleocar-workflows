@@ -7,7 +7,12 @@ RUN echo '***** update apt packages and install utilities *****'                
  && apt-get -y install -y apt-utils                                                                 \
  && apt-get -y install wget tree                                                                    \
  && echo '***** Install Python2, Python3, and pip for both *****'                                   \
- && apt-get -y install python python-pip python3 python3-pip
+ && apt-get -y install python python-pip python3 python3-pip                                        \
+ && pip2 install --upgrade pip                                                                      \
+ && pip3 install --upgrade pip                                                                      \
+ && echo '***** install numpy package for both Python2 and Python3'                                 \
+ && pip2 install numpy                                                                              \
+ && pip3 install numpy
 
 RUN echo '***** download source package for GDAL 2.1.2 *****'                                       \
  && mkdir builds                                                                                    \
