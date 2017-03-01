@@ -2,6 +2,8 @@ from openskope/gdal
 
 ARG DEBIAN_FRONTEND=noninteractive
 
+USER root
+
 RUN echo "***** install R directly from CRAN apt server *****"                                      \
  && echo deb http://cran.rstudio.com/bin/linux/ubuntu xenial/ > /etc/apt/sources.list.d/cran.list   \
  && gpg --keyserver keyserver.ubuntu.com --recv-key E084DAB9                                        \
@@ -19,8 +21,10 @@ RUN echo "***** install R directly from CRAN apt server *****"                  
  && apt-get -y install netcdf-bin libnetcdf-dev                                                     \
                                                                                                     \
  && echo '***** install R packages for geospatial computing *****'                                  \
- && export PATH=$PATH:/opt/gdal/gdal-2.1.2/bin/                                                     \
- && export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/gdal/gdal-2.1.2/lib/                               \
  && echo 'install.packages(c("rgdal", "rgeos", "raster", "ncdf4", "magrittr"), repos="http://cran.us.r-project.org")'  \
     > /tmp/install_geospatial_r_packages.R                                                          \
  && R --no-save < /tmp/install_geospatial_r_packages.R
+
+USER nobody
+
+CMD echo "Usage: docker run openskope/rgeospatial RScript <r-script-file> [r-script-arguments]"
