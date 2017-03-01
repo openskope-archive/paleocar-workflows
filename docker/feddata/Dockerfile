@@ -1,6 +1,8 @@
-from openskope/rgdal
+from openskope/rgeo
 
 ARG DEBIAN_FRONTEND=noninteractive
+
+USER root
 
 RUN echo '***** install curl and ssl development libraries needed by devtools ***** '               \
  && apt-get -y install libcurl4-openssl-dev libssl-dev                                              \
@@ -12,3 +14,7 @@ RUN echo '***** install curl and ssl development libraries needed by devtools **
  && echo 'install.packages(c("FedData"), repos="http://cran.us.r-project.org")'                     \
     > /tmp/install_feddata.R                                                                        \
  && R --no-save < /tmp/install_feddata.R
+
+USER nobody
+
+CMD echo "Usage: docker run openskope/feddata Rscript <r-script-using-feddata> [r-script-arguments]"

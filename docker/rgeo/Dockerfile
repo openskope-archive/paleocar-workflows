@@ -27,4 +27,4 @@ RUN echo "***** install R directly from CRAN apt server *****"                  
 
 USER nobody
 
-CMD echo "Usage: docker run openskope/rgeospatial RScript <r-script-file> [r-script-arguments]"
+CMD echo "Usage: docker run openskope/rgeospatial Rscript <r-script-file> [r-script-arguments]"
