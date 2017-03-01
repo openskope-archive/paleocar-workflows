@@ -1,18 +1,9 @@
-from openskope/rgdal
+from openskope/feddata
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-RUN echo '***** install curl and ssl development libraries needed by devtools *****'                \
- && apt-get -y install libcurl4-openssl-dev libssl-dev                                              \
-                                                                                                    \
- && echo "***** install netcdf and netcdf development libraries *****"                              \
- && apt-get -y install netcdf-bin libnetcdf-dev                                                     \
-                                                                                                    \
- && echo "***** install libxml development package *****"                                           \
- && apt-get -y install libxml2-dev                                                                  \
-                                                                                                    \
- && echo '***** install R packages needed by PaleoCAR *****'                                        \
- && echo 'install.packages(c("devtools", "survival"), repos="http://cran.us.r-project.org")'        \
+RUN echo '***** install R packages needed by PaleoCAR *****'                                        \
+ && echo 'install.packages(c("survival"), repos="http://cran.us.r-project.org")'                    \
     > /tmp/install_paleocar_r_dependencies.R                                                        \
  && R --no-save < /tmp/install_paleocar_r_dependencies.R                                            \
                                                                                                     \
