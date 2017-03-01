@@ -31,9 +31,16 @@ RUN echo '***** update apt packages and install utilities *****'                
                                                                                                     \
  && echo '***** then reconfigure and rebuild for Python3 bindings *****'                            \
  && ./configure --prefix /opt/gdal/gdal-2.1.2 --with-python=$(which python3)                        \
- && make install                                                                                    \
-                                                                                                    \
- && echo '***** configure image for running GDAL with Python2 bindings *****'                       \
- && echo "export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/gdal/gdal-2.1.2/lib/" >> ~/.bashrc           \
- && echo "export PATH=$PATH:/opt/gdal/gdal-2.1.2/bin/" >> ~/.bashrc                                 \
- && echo "export PYTHONPATH=/opt/gdal/gdal-2.1.2/lib/python2.7/site-packages/" >> ~/.bashrc
+ && make install
+
+RUN echo '***** set up enviroment for running GDAL with Python2 bindings *****'
+ENV LD_LIBRARY_PATH=/opt/gdal/gdal-2.1.2/lib/
+ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/gdal/gdal-2.1.2/bin/
+ENV PYTHONPATH=/opt/gdal/gdal-2.1.2/lib/python2.7/site-packages/
+
+WORKDIR /data
+VOLUME ["/data"]
+
+USER nobody
+
+CMD echo "Usage: docker run openskope/gdal <gdal-command> [arguments]"
