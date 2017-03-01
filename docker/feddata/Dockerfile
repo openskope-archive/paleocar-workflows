@@ -2,11 +2,8 @@ from openskope/rgdal
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-RUN echo '***** install curl and ssl development libraries needed by devtools *****'                \
+RUN echo '***** install curl and ssl development libraries needed by devtools ***** '               \
  && apt-get -y install libcurl4-openssl-dev libssl-dev                                              \
-                                                                                                    \
- && echo "***** install netcdf and netcdf development libraries *****"                              \
- && apt-get -y install netcdf-bin libnetcdf-dev                                                     \
                                                                                                     \
  && echo "***** install libxml development package *****"                                           \
  && apt-get -y install libxml2-dev                                                                  \

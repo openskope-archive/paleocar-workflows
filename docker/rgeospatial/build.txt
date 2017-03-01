@@ -1,30 +1,37 @@
-Sending build context to Docker daemon 4.096 kB
+Sending build context to Docker daemon 4.608 kB
 Step 1/3 : FROM openskope/gdal
  ---> a0cf1725d7f4
 Step 2/3 : ARG DEBIAN_FRONTEND=noninteractive
- ---> Running in 377bcba578fc
+ ---> Using cache
  ---> 60c2cfab6ade
-Removing intermediate container 377bcba578fc
-Step 3/3 : RUN echo "***** install R directly from CRAN apt server *****"                                       && echo deb http://cran.rstudio.com/bin/linux/ubuntu xenial/ > /etc/apt/sources.list.d/cran.list    && gpg --keyserver keyserver.ubuntu.com --recv-key E084DAB9                                         && gpg -a --export E084DAB9 |  apt-key add -                                                        && apt-get -y update                                                                                && apt-get -y install r-base                                                                                                                                                                            && echo "***** install libproj cartographic projection library *****"                               && apt-get -y install libproj-dev                                                                                                                                                                       && echo "***** install GEOS libraries *****"                                                        && apt-get -y install libgeos-3.5.0 libgeos-dev                                                                                                                                                         && echo '***** install R packages for geospatial computing *****'                                   && export PATH=$PATH:/opt/gdal/gdal-2.1.2/bin/                                                      && export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/gdal/gdal-2.1.2/lib/                                && echo 'install.packages(c("rgdal"), repos="http://cran.us.r-project.org")'                           > /tmp/install_rgdal.R                                                                           && R --no-save < /tmp/install_rgdal.R
- ---> Running in aef2779f90ff
+Step 3/3 : RUN echo "***** install R directly from CRAN apt server *****"                                       && echo deb http://cran.rstudio.com/bin/linux/ubuntu xenial/ > /etc/apt/sources.list.d/cran.list    && gpg --keyserver keyserver.ubuntu.com --recv-key E084DAB9                                         && gpg -a --export E084DAB9 |  apt-key add -                                                        && apt-get -y update                                                                                && apt-get -y install r-base                                                                                                                                                                            && echo "***** install libproj cartographic projection library *****"                               && apt-get -y install libproj-dev                                                                                                                                                                       && echo "***** install GEOS libraries *****"                                                        && apt-get -y install libgeos-3.5.0 libgeos-dev                                                                                                                                                        && echo "***** install netcdf and netcdf development libraries *****"                                && apt-get -y install netcdf-bin libnetcdf-dev                                                                                                                                                          && echo '***** install R packages for geospatial computing *****'                                   && export PATH=$PATH:/opt/gdal/gdal-2.1.2/bin/                                                      && export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/gdal/gdal-2.1.2/lib/                                && echo 'install.packages(c("rgdal", "rgeos", "raster", "ncdf4", "magrittr"), repos="http://cran.us.r-project.org")'      > /tmp/install_geospatial_r_packages.R                                                           && R --no-save < /tmp/install_geospatial_r_packages.R
+ ---> Running in 088fbabbcb08
 ***** install R directly from CRAN apt server *****
 [91mgpg: directory `/root/.gnupg' created
 [0m[91mgpg: new configuration file `/root/.gnupg/gpg.conf' created
 gpg: WARNING: options in `/root/.gnupg/gpg.conf' are not yet active during this run
-gpg: keyring `/root/.gnupg/secring.gpg' created
-gpg: keyring `/root/.gnupg/pubring.gpg' created
+[0m[91mgpg: keyring `/root/.gnupg/secring.gpg' created
+[0m[91mgpg: keyring `/root/.gnupg/pubring.gpg' created
 [0m[91mgpg: requesting key E084DAB9 from hkp server keyserver.ubuntu.com
 [0m[91mgpg: /root/.gnupg/trustdb.gpg: trustdb created
 [0m[91mgpg: key E084DAB9: public key "Michael Rutter <marutter@gmail.com>" imported
-[0m[91mgpg: Total number processed: 1
+gpg: Total number processed: 1
 gpg:               imported: 1  (RSA: 1)
 [0mOK
 Get:1 http://cran.rstudio.com/bin/linux/ubuntu xenial/ InRelease [3590 B]
-Get:2 http://cran.rstudio.com/bin/linux/ubuntu xenial/ Packages [54.9 kB]
-Hit:3 http://archive.ubuntu.com/ubuntu xenial InRelease
-Hit:4 http://archive.ubuntu.com/ubuntu xenial-updates InRelease
-Hit:5 http://archive.ubuntu.com/ubuntu xenial-security InRelease
-Fetched 58.5 kB in 0s (70.5 kB/s)
+Hit:2 http://archive.ubuntu.com/ubuntu xenial InRelease
+Get:3 http://cran.rstudio.com/bin/linux/ubuntu xenial/ Packages [54.9 kB]
+Get:4 http://archive.ubuntu.com/ubuntu xenial-updates InRelease [102 kB]
+Get:5 http://archive.ubuntu.com/ubuntu xenial-security InRelease [102 kB]
+Get:6 http://archive.ubuntu.com/ubuntu xenial-updates/main Sources [295 kB]
+Get:7 http://archive.ubuntu.com/ubuntu xenial-updates/universe Sources [166 kB]
+Get:8 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 Packages [618 kB]
+Get:9 http://archive.ubuntu.com/ubuntu xenial-updates/universe amd64 Packages [518 kB]
+Get:10 http://archive.ubuntu.com/ubuntu xenial-security/main Sources [73.4 kB]
+Get:11 http://archive.ubuntu.com/ubuntu xenial-security/universe Sources [23.4 kB]
+Get:12 http://archive.ubuntu.com/ubuntu xenial-security/main amd64 Packages [273 kB]
+Get:13 http://archive.ubuntu.com/ubuntu xenial-security/universe amd64 Packages [96.2 kB]
+Fetched 2325 kB in 3s (666 kB/s)
 Reading package lists...
 Reading package lists...
 Building dependency tree...
@@ -145,126 +152,126 @@ The following NEW packages will be installed:
 Need to get 105 MB of archives.
 After this operation, 421 MB of additional disk space will be used.
 Get:1 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxau6 amd64 1:1.0.8-1 [8376 B]
-Get:2 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxdmcp6 amd64 1:1.1.2-1.1 [11.0 kB]
-Get:3 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxcb1 amd64 1.11.1-1ubuntu1 [40.0 kB]
-Get:4 http://archive.ubuntu.com/ubuntu xenial/main amd64 libx11-data all 2:1.6.3-1ubuntu2 [113 kB]
-Get:5 http://archive.ubuntu.com/ubuntu xenial/main amd64 libx11-6 amd64 2:1.6.3-1ubuntu2 [571 kB]
-Get:6 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxext6 amd64 2:1.3.3-1 [29.4 kB]
-Get:7 http://archive.ubuntu.com/ubuntu xenial/main amd64 groff-base amd64 1.22.3-7 [1151 kB]
-Get:8 http://archive.ubuntu.com/ubuntu xenial/main amd64 bsdmainutils amd64 9.0.6ubuntu3 [174 kB]
-Get:9 http://archive.ubuntu.com/ubuntu xenial/main amd64 libpipeline1 amd64 1.4.1-2 [24.6 kB]
-Get:10 http://archive.ubuntu.com/ubuntu xenial/main amd64 man-db amd64 2.7.5-1 [854 kB]
-Get:11 http://archive.ubuntu.com/ubuntu xenial/main amd64 sgml-base all 1.26+nmu4ubuntu1 [12.5 kB]
-Get:12 http://archive.ubuntu.com/ubuntu xenial/main amd64 fonts-dejavu-core all 2.35-1 [1039 kB]
-Get:13 http://archive.ubuntu.com/ubuntu xenial/main amd64 ucf all 3.0036 [52.9 kB]
-Get:14 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 fontconfig-config all 2.11.94-0ubuntu1.1 [49.9 kB]
-Get:15 http://archive.ubuntu.com/ubuntu xenial/main amd64 libpng12-0 amd64 1.2.54-1ubuntu1 [116 kB]
-Get:16 http://archive.ubuntu.com/ubuntu xenial/main amd64 libfreetype6 amd64 2.6.1-0.1ubuntu2 [316 kB]
-Get:17 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libfontconfig1 amd64 2.11.94-0ubuntu1.1 [131 kB]
-Get:18 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 fontconfig amd64 2.11.94-0ubuntu1.1 [178 kB]
-Get:19 http://archive.ubuntu.com/ubuntu xenial/main amd64 x11-common all 1:7.7+13ubuntu3 [22.4 kB]
-Get:20 http://archive.ubuntu.com/ubuntu xenial/main amd64 libice6 amd64 2:1.0.9-1 [39.2 kB]
-Get:21 http://archive.ubuntu.com/ubuntu xenial/main amd64 libjpeg-turbo8 amd64 1.4.2-0ubuntu3 [111 kB]
-Get:22 http://archive.ubuntu.com/ubuntu xenial/main amd64 libpcrecpp0v5 amd64 2:8.38-3.1 [15.2 kB]
-Get:23 http://archive.ubuntu.com/ubuntu xenial/main amd64 libsigsegv2 amd64 2.10-4 [14.1 kB]
-Get:24 http://archive.ubuntu.com/ubuntu xenial/main amd64 libsm6 amd64 2:1.2.2-1 [15.8 kB]
-Get:25 http://archive.ubuntu.com/ubuntu xenial/main amd64 libunistring0 amd64 0.9.3-5.2ubuntu1 [279 kB]
-Get:26 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxcomposite1 amd64 1:0.4.4-1 [7714 B]
-Get:27 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxfixes3 amd64 1:5.0.1-2 [11.1 kB]
-Get:28 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxrender1 amd64 1:0.9.9-0ubuntu1 [18.5 kB]
-Get:29 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxcursor1 amd64 1:1.1.14-1 [22.8 kB]
-Get:30 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxdamage1 amd64 1:1.1.4-2 [6946 B]
-Get:31 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxft2 amd64 2.3.2-1 [36.1 kB]
-Get:32 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxinerama1 amd64 2:1.1.3-1 [7908 B]
-Get:33 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxshmfence1 amd64 1.2-1 [5042 B]
-Get:34 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxss1 amd64 1:1.2.2-1 [8582 B]
-Get:35 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxtst6 amd64 2:1.2.2-1 [14.1 kB]
-Get:36 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxv1 amd64 2:1.0.10-1 [10.3 kB]
-Get:37 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxxf86dga1 amd64 2:1.1.4-1 [13.7 kB]
-Get:38 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxxf86vm1 amd64 1:1.1.4-1 [10.6 kB]
-Get:39 http://archive.ubuntu.com/ubuntu xenial/main amd64 libjbig0 amd64 2.1-3.1 [26.6 kB]
-Get:40 http://archive.ubuntu.com/ubuntu xenial/main amd64 libtxc-dxtn-s2tc0 amd64 0~git20131104-1.1 [51.8 kB]
-Get:41 http://archive.ubuntu.com/ubuntu xenial/main amd64 libbsd0 amd64 0.8.2-1 [41.7 kB]
-Get:42 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libnettle6 amd64 3.2-1ubuntu0.16.04.1 [93.5 kB]
-Get:43 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libhogweed4 amd64 3.2-1ubuntu0.16.04.1 [136 kB]
-Get:44 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libp11-kit0 amd64 0.23.2-5~ubuntu16.04.1 [105 kB]
-Get:45 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libtasn1-6 amd64 4.7-3ubuntu0.16.04.1 [43.2 kB]
-Get:46 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libgnutls30 amd64 3.4.10-4ubuntu1.2 [547 kB]
-Get:47 http://archive.ubuntu.com/ubuntu xenial/main amd64 libtext-iconv-perl amd64 1.7-5build4 [13.0 kB]
-Get:48 http://archive.ubuntu.com/ubuntu xenial/main amd64 libcap-ng0 amd64 0.7.7-1 [10.9 kB]
-Get:49 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libdbus-1-3 amd64 1.10.6-1ubuntu3.3 [161 kB]
-Get:50 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 dbus amd64 1.10.6-1ubuntu3.3 [142 kB]
-Get:51 http://archive.ubuntu.com/ubuntu xenial/main amd64 libasprintf0v5 amd64 0.19.7-2ubuntu3 [6412 B]
-Get:52 http://archive.ubuntu.com/ubuntu xenial/main amd64 gettext-base amd64 0.19.7-2ubuntu3 [47.9 kB]
-Get:53 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 krb5-locales all 1.13.2+dfsg-5ubuntu2 [13.2 kB]
-Get:54 http://archive.ubuntu.com/ubuntu xenial/main amd64 libroken18-heimdal amd64 1.7~git20150920+dfsg-4ubuntu1 [41.2 kB]
-Get:55 http://archive.ubuntu.com/ubuntu xenial/main amd64 libasn1-8-heimdal amd64 1.7~git20150920+dfsg-4ubuntu1 [174 kB]
-Get:56 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-base-core 3.3.2-1xenial0 [21.0 MB]
-Get:57 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libdrm2 amd64 2.4.70-1~ubuntu16.04.1 [27.9 kB]
-Get:58 http://archive.ubuntu.com/ubuntu xenial/main amd64 libedit2 amd64 3.1-20150325-1ubuntu2 [76.5 kB]
-Get:59 http://archive.ubuntu.com/ubuntu xenial/main amd64 libelf1 amd64 0.165-3ubuntu1 [42.5 kB]
-Get:60 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libglib2.0-0 amd64 2.48.2-0ubuntu1 [1119 kB]
-Get:61 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libglib2.0-data all 2.48.2-0ubuntu1 [132 kB]
-Get:62 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libkrb5support0 amd64 1.13.2+dfsg-5ubuntu2 [30.8 kB]
-Get:63 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libk5crypto3 amd64 1.13.2+dfsg-5ubuntu2 [81.2 kB]
-Get:64 http://archive.ubuntu.com/ubuntu xenial/main amd64 libkeyutils1 amd64 1.5.9-8ubuntu1 [9904 B]
-Get:65 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libkrb5-3 amd64 1.13.2+dfsg-5ubuntu2 [273 kB]
-Get:66 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libgssapi-krb5-2 amd64 1.13.2+dfsg-5ubuntu2 [120 kB]
-Get:67 http://archive.ubuntu.com/ubuntu xenial/main amd64 libhcrypto4-heimdal amd64 1.7~git20150920+dfsg-4ubuntu1 [84.9 kB]
-Get:68 http://archive.ubuntu.com/ubuntu xenial/main amd64 libheimbase1-heimdal amd64 1.7~git20150920+dfsg-4ubuntu1 [29.2 kB]
-Get:69 http://archive.ubuntu.com/ubuntu xenial/main amd64 libwind0-heimdal amd64 1.7~git20150920+dfsg-4ubuntu1 [48.2 kB]
-Get:70 http://archive.ubuntu.com/ubuntu xenial/main amd64 libhx509-5-heimdal amd64 1.7~git20150920+dfsg-4ubuntu1 [107 kB]
-Get:71 http://archive.ubuntu.com/ubuntu xenial/main amd64 libkrb5-26-heimdal amd64 1.7~git20150920+dfsg-4ubuntu1 [202 kB]
-Get:72 http://archive.ubuntu.com/ubuntu xenial/main amd64 libheimntlm0-heimdal amd64 1.7~git20150920+dfsg-4ubuntu1 [15.1 kB]
-Get:73 http://archive.ubuntu.com/ubuntu xenial/main amd64 libgssapi3-heimdal amd64 1.7~git20150920+dfsg-4ubuntu1 [96.1 kB]
-Get:74 http://archive.ubuntu.com/ubuntu xenial/main amd64 libicu55 amd64 55.1-7 [7643 kB]
-Get:75 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-cran-boot 1.3-18-1cran1xenial0 [573 kB]
-Get:76 http://archive.ubuntu.com/ubuntu xenial/main amd64 libsasl2-modules-db amd64 2.1.26.dfsg1-14build1 [14.5 kB]
-Get:77 http://archive.ubuntu.com/ubuntu xenial/main amd64 libsasl2-2 amd64 2.1.26.dfsg1-14build1 [48.7 kB]
-Get:78 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libldap-2.4-2 amd64 2.4.42+dfsg-2ubuntu3.1 [161 kB]
-Get:79 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-cran-cluster 2.0.5-1xenial0 [490 kB]
-Get:80 http://archive.ubuntu.com/ubuntu xenial/main amd64 librtmp1 amd64 2.4+20151223.gitfa8646d-1build1 [53.9 kB]
-Get:81 http://archive.ubuntu.com/ubuntu xenial/main amd64 libsasl2-modules amd64 2.1.26.dfsg1-14build1 [47.5 kB]
-Get:82 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libxml2 amd64 2.9.3+dfsg1-1ubuntu0.1 [696 kB]
-Get:83 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-cran-foreign 0.8.67-1xenial0 [211 kB]
-Get:84 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-cran-mass 7.3-45-1xenial0 [1019 kB]
-Get:85 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-cran-kernsmooth 2.23-15-2xenial0 [81.8 kB]
-Get:86 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-cran-lattice 0.20-34-1xenial0 [714 kB]
-Get:87 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxmuu1 amd64 2:1.1.2-2 [9674 B]
-Get:88 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 shared-mime-info amd64 1.5-2ubuntu0.1 [405 kB]
-Get:89 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-cran-nlme 3.1.131-2xenial0 [2044 kB]
-Get:90 http://archive.ubuntu.com/ubuntu xenial/main amd64 xauth amd64 1:1.0.9-1ubuntu2 [22.7 kB]
-Get:91 http://archive.ubuntu.com/ubuntu xenial/main amd64 xdg-user-dirs amd64 0.15-2ubuntu6 [61.7 kB]
-Get:92 http://archive.ubuntu.com/ubuntu xenial/main amd64 xml-core all 0.13+nmu2 [23.3 kB]
-Get:93 http://archive.ubuntu.com/ubuntu xenial/main amd64 m4 amd64 1.4.17-5 [195 kB]
-Get:94 http://archive.ubuntu.com/ubuntu xenial/main amd64 autoconf all 2.69-9 [321 kB]
-Get:95 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-cran-matrix 1.2-8-1xenial0 [2334 kB]
-Get:96 http://archive.ubuntu.com/ubuntu xenial/main amd64 autotools-dev all 20150820.1 [39.8 kB]
-Get:97 http://archive.ubuntu.com/ubuntu xenial/main amd64 automake all 1:1.15-4ubuntu1 [510 kB]
-Get:98 http://archive.ubuntu.com/ubuntu xenial/main amd64 bzip2-doc all 1.0.6-8 [295 kB]
-Get:99 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-cran-mgcv 1.8-16-1cran1xenial0 [2102 kB]
-Get:100 http://archive.ubuntu.com/ubuntu xenial/main amd64 libcroco3 amd64 0.6.11-1 [81.6 kB]
-Get:101 http://archive.ubuntu.com/ubuntu xenial/main amd64 gettext amd64 0.19.7-2ubuntu3 [1076 kB]
-Get:102 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-cran-survival 2.39-4-2xenial0 [4592 kB]
-Get:103 http://archive.ubuntu.com/ubuntu xenial/main amd64 intltool-debian all 0.35.0+20060710.4 [24.9 kB]
-Get:104 http://archive.ubuntu.com/ubuntu xenial/main amd64 po-debconf all 1.0.19 [234 kB]
-Get:105 http://archive.ubuntu.com/ubuntu xenial/main amd64 libarchive-zip-perl all 1.56-2 [84.1 kB]
-Get:106 http://archive.ubuntu.com/ubuntu xenial/main amd64 libfile-stripnondeterminism-perl all 0.015-1 [10.3 kB]
-Get:107 http://archive.ubuntu.com/ubuntu xenial/main amd64 libtimedate-perl all 2.3000-2 [37.5 kB]
-Get:108 http://archive.ubuntu.com/ubuntu xenial/main amd64 dh-strip-nondeterminism all 0.015-1 [4864 B]
-Get:109 http://archive.ubuntu.com/ubuntu xenial/main amd64 debhelper all 9.20160115ubuntu3 [739 kB]
-Get:110 http://archive.ubuntu.com/ubuntu xenial/main amd64 liburi-perl all 1.71-1 [76.9 kB]
-Get:111 http://archive.ubuntu.com/ubuntu xenial/main amd64 libencode-locale-perl all 1.05-1 [12.3 kB]
-Get:112 http://archive.ubuntu.com/ubuntu xenial/main amd64 libhttp-date-perl all 6.02-1 [10.4 kB]
-Get:113 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-cran-class 7.3-14-1xenial0 [81.2 kB]
-Get:114 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-cran-nnet 7.3-12-1xenial0 [97.0 kB]
-Get:115 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-cran-spatial 7.3-11-1xenial0 [118 kB]
-Get:116 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-cran-codetools 0.2-15-1cran1xenial0 [45.0 kB]
-Get:117 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-recommended 3.3.2-1xenial0 [2708 B]
-Get:118 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-base 3.3.2-1xenial0 [40.4 kB]
-Get:119 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-base-dev 3.3.2-1xenial0 [4306 B]
-Get:120 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-doc-html 3.3.2-1xenial0 [547 kB]
-Get:121 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-base-html 3.3.2-1xenial0 [85.7 kB]
+Get:2 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-base-core 3.3.2-1xenial0 [21.0 MB]
+Get:3 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxdmcp6 amd64 1:1.1.2-1.1 [11.0 kB]
+Get:4 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxcb1 amd64 1.11.1-1ubuntu1 [40.0 kB]
+Get:5 http://archive.ubuntu.com/ubuntu xenial/main amd64 libx11-data all 2:1.6.3-1ubuntu2 [113 kB]
+Get:6 http://archive.ubuntu.com/ubuntu xenial/main amd64 libx11-6 amd64 2:1.6.3-1ubuntu2 [571 kB]
+Get:7 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxext6 amd64 2:1.3.3-1 [29.4 kB]
+Get:8 http://archive.ubuntu.com/ubuntu xenial/main amd64 groff-base amd64 1.22.3-7 [1151 kB]
+Get:9 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-cran-boot 1.3-18-1cran1xenial0 [573 kB]
+Get:10 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-cran-cluster 2.0.5-1xenial0 [490 kB]
+Get:11 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-cran-foreign 0.8.67-1xenial0 [211 kB]
+Get:12 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-cran-mass 7.3-45-1xenial0 [1019 kB]
+Get:13 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-cran-kernsmooth 2.23-15-2xenial0 [81.8 kB]
+Get:14 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-cran-lattice 0.20-34-1xenial0 [714 kB]
+Get:15 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-cran-nlme 3.1.131-2xenial0 [2044 kB]
+Get:16 http://archive.ubuntu.com/ubuntu xenial/main amd64 bsdmainutils amd64 9.0.6ubuntu3 [174 kB]
+Get:17 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-cran-matrix 1.2-8-1xenial0 [2334 kB]
+Get:18 http://archive.ubuntu.com/ubuntu xenial/main amd64 libpipeline1 amd64 1.4.1-2 [24.6 kB]
+Get:19 http://archive.ubuntu.com/ubuntu xenial/main amd64 man-db amd64 2.7.5-1 [854 kB]
+Get:20 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-cran-mgcv 1.8-16-1cran1xenial0 [2102 kB]
+Get:21 http://archive.ubuntu.com/ubuntu xenial/main amd64 sgml-base all 1.26+nmu4ubuntu1 [12.5 kB]
+Get:22 http://archive.ubuntu.com/ubuntu xenial/main amd64 fonts-dejavu-core all 2.35-1 [1039 kB]
+Get:23 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-cran-survival 2.39-4-2xenial0 [4592 kB]
+Get:24 http://archive.ubuntu.com/ubuntu xenial/main amd64 ucf all 3.0036 [52.9 kB]
+Get:25 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 fontconfig-config all 2.11.94-0ubuntu1.1 [49.9 kB]
+Get:26 http://archive.ubuntu.com/ubuntu xenial/main amd64 libpng12-0 amd64 1.2.54-1ubuntu1 [116 kB]
+Get:27 http://archive.ubuntu.com/ubuntu xenial/main amd64 libfreetype6 amd64 2.6.1-0.1ubuntu2 [316 kB]
+Get:28 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libfontconfig1 amd64 2.11.94-0ubuntu1.1 [131 kB]
+Get:29 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 fontconfig amd64 2.11.94-0ubuntu1.1 [178 kB]
+Get:30 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-cran-class 7.3-14-1xenial0 [81.2 kB]
+Get:31 http://archive.ubuntu.com/ubuntu xenial/main amd64 x11-common all 1:7.7+13ubuntu3 [22.4 kB]
+Get:32 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-cran-nnet 7.3-12-1xenial0 [97.0 kB]
+Get:33 http://archive.ubuntu.com/ubuntu xenial/main amd64 libice6 amd64 2:1.0.9-1 [39.2 kB]
+Get:34 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-cran-spatial 7.3-11-1xenial0 [118 kB]
+Get:35 http://archive.ubuntu.com/ubuntu xenial/main amd64 libjpeg-turbo8 amd64 1.4.2-0ubuntu3 [111 kB]
+Get:36 http://archive.ubuntu.com/ubuntu xenial/main amd64 libpcrecpp0v5 amd64 2:8.38-3.1 [15.2 kB]
+Get:37 http://archive.ubuntu.com/ubuntu xenial/main amd64 libsigsegv2 amd64 2.10-4 [14.1 kB]
+Get:38 http://archive.ubuntu.com/ubuntu xenial/main amd64 libsm6 amd64 2:1.2.2-1 [15.8 kB]
+Get:39 http://archive.ubuntu.com/ubuntu xenial/main amd64 libunistring0 amd64 0.9.3-5.2ubuntu1 [279 kB]
+Get:40 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-cran-codetools 0.2-15-1cran1xenial0 [45.0 kB]
+Get:41 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxcomposite1 amd64 1:0.4.4-1 [7714 B]
+Get:42 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxfixes3 amd64 1:5.0.1-2 [11.1 kB]
+Get:43 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxrender1 amd64 1:0.9.9-0ubuntu1 [18.5 kB]
+Get:44 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxcursor1 amd64 1:1.1.14-1 [22.8 kB]
+Get:45 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxdamage1 amd64 1:1.1.4-2 [6946 B]
+Get:46 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxft2 amd64 2.3.2-1 [36.1 kB]
+Get:47 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-recommended 3.3.2-1xenial0 [2708 B]
+Get:48 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxinerama1 amd64 2:1.1.3-1 [7908 B]
+Get:49 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxshmfence1 amd64 1.2-1 [5042 B]
+Get:50 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxss1 amd64 1:1.2.2-1 [8582 B]
+Get:51 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxtst6 amd64 2:1.2.2-1 [14.1 kB]
+Get:52 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-base 3.3.2-1xenial0 [40.4 kB]
+Get:53 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxv1 amd64 2:1.0.10-1 [10.3 kB]
+Get:54 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxxf86dga1 amd64 2:1.1.4-1 [13.7 kB]
+Get:55 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxxf86vm1 amd64 1:1.1.4-1 [10.6 kB]
+Get:56 http://archive.ubuntu.com/ubuntu xenial/main amd64 libjbig0 amd64 2.1-3.1 [26.6 kB]
+Get:57 http://archive.ubuntu.com/ubuntu xenial/main amd64 libtxc-dxtn-s2tc0 amd64 0~git20131104-1.1 [51.8 kB]
+Get:58 http://archive.ubuntu.com/ubuntu xenial/main amd64 libbsd0 amd64 0.8.2-1 [41.7 kB]
+Get:59 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-base-dev 3.3.2-1xenial0 [4306 B]
+Get:60 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libnettle6 amd64 3.2-1ubuntu0.16.04.1 [93.5 kB]
+Get:61 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-doc-html 3.3.2-1xenial0 [547 kB]
+Get:62 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libhogweed4 amd64 3.2-1ubuntu0.16.04.1 [136 kB]
+Get:63 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libp11-kit0 amd64 0.23.2-5~ubuntu16.04.1 [105 kB]
+Get:64 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libtasn1-6 amd64 4.7-3ubuntu0.16.04.1 [43.2 kB]
+Get:65 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libgnutls30 amd64 3.4.10-4ubuntu1.2 [547 kB]
+Get:66 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-base-html 3.3.2-1xenial0 [85.7 kB]
+Get:67 http://archive.ubuntu.com/ubuntu xenial/main amd64 libtext-iconv-perl amd64 1.7-5build4 [13.0 kB]
+Get:68 http://archive.ubuntu.com/ubuntu xenial/main amd64 libcap-ng0 amd64 0.7.7-1 [10.9 kB]
+Get:69 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libdbus-1-3 amd64 1.10.6-1ubuntu3.3 [161 kB]
+Get:70 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 dbus amd64 1.10.6-1ubuntu3.3 [142 kB]
+Get:71 http://archive.ubuntu.com/ubuntu xenial/main amd64 libasprintf0v5 amd64 0.19.7-2ubuntu3 [6412 B]
+Get:72 http://archive.ubuntu.com/ubuntu xenial/main amd64 gettext-base amd64 0.19.7-2ubuntu3 [47.9 kB]
+Get:73 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 krb5-locales all 1.13.2+dfsg-5ubuntu2 [13.2 kB]
+Get:74 http://archive.ubuntu.com/ubuntu xenial/main amd64 libroken18-heimdal amd64 1.7~git20150920+dfsg-4ubuntu1 [41.2 kB]
+Get:75 http://archive.ubuntu.com/ubuntu xenial/main amd64 libasn1-8-heimdal amd64 1.7~git20150920+dfsg-4ubuntu1 [174 kB]
+Get:76 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libdrm2 amd64 2.4.70-1~ubuntu16.04.1 [27.9 kB]
+Get:77 http://archive.ubuntu.com/ubuntu xenial/main amd64 libedit2 amd64 3.1-20150325-1ubuntu2 [76.5 kB]
+Get:78 http://archive.ubuntu.com/ubuntu xenial/main amd64 libelf1 amd64 0.165-3ubuntu1 [42.5 kB]
+Get:79 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libglib2.0-0 amd64 2.48.2-0ubuntu1 [1119 kB]
+Get:80 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libglib2.0-data all 2.48.2-0ubuntu1 [132 kB]
+Get:81 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libkrb5support0 amd64 1.13.2+dfsg-5ubuntu2 [30.8 kB]
+Get:82 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libk5crypto3 amd64 1.13.2+dfsg-5ubuntu2 [81.2 kB]
+Get:83 http://archive.ubuntu.com/ubuntu xenial/main amd64 libkeyutils1 amd64 1.5.9-8ubuntu1 [9904 B]
+Get:84 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libkrb5-3 amd64 1.13.2+dfsg-5ubuntu2 [273 kB]
+Get:85 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libgssapi-krb5-2 amd64 1.13.2+dfsg-5ubuntu2 [120 kB]
+Get:86 http://archive.ubuntu.com/ubuntu xenial/main amd64 libhcrypto4-heimdal amd64 1.7~git20150920+dfsg-4ubuntu1 [84.9 kB]
+Get:87 http://archive.ubuntu.com/ubuntu xenial/main amd64 libheimbase1-heimdal amd64 1.7~git20150920+dfsg-4ubuntu1 [29.2 kB]
+Get:88 http://archive.ubuntu.com/ubuntu xenial/main amd64 libwind0-heimdal amd64 1.7~git20150920+dfsg-4ubuntu1 [48.2 kB]
+Get:89 http://archive.ubuntu.com/ubuntu xenial/main amd64 libhx509-5-heimdal amd64 1.7~git20150920+dfsg-4ubuntu1 [107 kB]
+Get:90 http://archive.ubuntu.com/ubuntu xenial/main amd64 libkrb5-26-heimdal amd64 1.7~git20150920+dfsg-4ubuntu1 [202 kB]
+Get:91 http://archive.ubuntu.com/ubuntu xenial/main amd64 libheimntlm0-heimdal amd64 1.7~git20150920+dfsg-4ubuntu1 [15.1 kB]
+Get:92 http://archive.ubuntu.com/ubuntu xenial/main amd64 libgssapi3-heimdal amd64 1.7~git20150920+dfsg-4ubuntu1 [96.1 kB]
+Get:93 http://archive.ubuntu.com/ubuntu xenial/main amd64 libicu55 amd64 55.1-7 [7643 kB]
+Get:94 http://archive.ubuntu.com/ubuntu xenial/main amd64 libsasl2-modules-db amd64 2.1.26.dfsg1-14build1 [14.5 kB]
+Get:95 http://archive.ubuntu.com/ubuntu xenial/main amd64 libsasl2-2 amd64 2.1.26.dfsg1-14build1 [48.7 kB]
+Get:96 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libldap-2.4-2 amd64 2.4.42+dfsg-2ubuntu3.1 [161 kB]
+Get:97 http://archive.ubuntu.com/ubuntu xenial/main amd64 librtmp1 amd64 2.4+20151223.gitfa8646d-1build1 [53.9 kB]
+Get:98 http://archive.ubuntu.com/ubuntu xenial/main amd64 libsasl2-modules amd64 2.1.26.dfsg1-14build1 [47.5 kB]
+Get:99 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libxml2 amd64 2.9.3+dfsg1-1ubuntu0.1 [696 kB]
+Get:100 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxmuu1 amd64 2:1.1.2-2 [9674 B]
+Get:101 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 shared-mime-info amd64 1.5-2ubuntu0.1 [405 kB]
+Get:102 http://archive.ubuntu.com/ubuntu xenial/main amd64 xauth amd64 1:1.0.9-1ubuntu2 [22.7 kB]
+Get:103 http://archive.ubuntu.com/ubuntu xenial/main amd64 xdg-user-dirs amd64 0.15-2ubuntu6 [61.7 kB]
+Get:104 http://archive.ubuntu.com/ubuntu xenial/main amd64 xml-core all 0.13+nmu2 [23.3 kB]
+Get:105 http://archive.ubuntu.com/ubuntu xenial/main amd64 m4 amd64 1.4.17-5 [195 kB]
+Get:106 http://archive.ubuntu.com/ubuntu xenial/main amd64 autoconf all 2.69-9 [321 kB]
+Get:107 http://archive.ubuntu.com/ubuntu xenial/main amd64 autotools-dev all 20150820.1 [39.8 kB]
+Get:108 http://archive.ubuntu.com/ubuntu xenial/main amd64 automake all 1:1.15-4ubuntu1 [510 kB]
+Get:109 http://archive.ubuntu.com/ubuntu xenial/main amd64 bzip2-doc all 1.0.6-8 [295 kB]
+Get:110 http://archive.ubuntu.com/ubuntu xenial/main amd64 libcroco3 amd64 0.6.11-1 [81.6 kB]
+Get:111 http://archive.ubuntu.com/ubuntu xenial/main amd64 gettext amd64 0.19.7-2ubuntu3 [1076 kB]
+Get:112 http://archive.ubuntu.com/ubuntu xenial/main amd64 intltool-debian all 0.35.0+20060710.4 [24.9 kB]
+Get:113 http://archive.ubuntu.com/ubuntu xenial/main amd64 po-debconf all 1.0.19 [234 kB]
+Get:114 http://archive.ubuntu.com/ubuntu xenial/main amd64 libarchive-zip-perl all 1.56-2 [84.1 kB]
+Get:115 http://archive.ubuntu.com/ubuntu xenial/main amd64 libfile-stripnondeterminism-perl all 0.015-1 [10.3 kB]
+Get:116 http://archive.ubuntu.com/ubuntu xenial/main amd64 libtimedate-perl all 2.3000-2 [37.5 kB]
+Get:117 http://archive.ubuntu.com/ubuntu xenial/main amd64 dh-strip-nondeterminism all 0.015-1 [4864 B]
+Get:118 http://archive.ubuntu.com/ubuntu xenial/main amd64 debhelper all 9.20160115ubuntu3 [739 kB]
+Get:119 http://archive.ubuntu.com/ubuntu xenial/main amd64 liburi-perl all 1.71-1 [76.9 kB]
+Get:120 http://archive.ubuntu.com/ubuntu xenial/main amd64 libencode-locale-perl all 1.05-1 [12.3 kB]
+Get:121 http://archive.ubuntu.com/ubuntu xenial/main amd64 libhttp-date-perl all 6.02-1 [10.4 kB]
 Get:122 http://archive.ubuntu.com/ubuntu xenial/main amd64 libfile-listing-perl all 6.04-1 [9774 B]
 Get:123 http://archive.ubuntu.com/ubuntu xenial/main amd64 libhtml-tagset-perl all 3.20-2 [13.5 kB]
 Get:124 http://archive.ubuntu.com/ubuntu xenial/main amd64 libhtml-parser-perl amd64 3.72-1 [86.1 kB]
@@ -361,7 +368,7 @@ Get:214 http://archive.ubuntu.com/ubuntu xenial/main amd64 libreadline6-dev amd6
 Get:215 http://archive.ubuntu.com/ubuntu xenial/main amd64 libreadline-dev amd64 6.3-8ubuntu2 [992 B]
 Get:216 http://archive.ubuntu.com/ubuntu xenial/main amd64 libtcl8.6 amd64 8.6.5+dfsg-2 [875 kB]
 Get:217 http://archive.ubuntu.com/ubuntu xenial/main amd64 libtie-ixhash-perl all 1.23-2 [11.2 kB]
-Get:218 http://archive.ubuntu.com/ubuntu xenial/main amd64 libtiff5 amd64 4.0.6-1 [144 kB]
+Get:218 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libtiff5 amd64 4.0.6-1ubuntu0.1 [146 kB]
 Get:219 http://archive.ubuntu.com/ubuntu xenial/main amd64 libtk8.6 amd64 8.6.5-1 [693 kB]
 Get:220 http://archive.ubuntu.com/ubuntu xenial/main amd64 libx11-protocol-perl all 0.56-7 [149 kB]
 Get:221 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxt6 amd64 1:1.1.5-0ubuntu1 [160 kB]
@@ -382,7 +389,7 @@ Get:235 http://archive.ubuntu.com/ubuntu xenial/main amd64 x11-xserver-utils amd
 Get:236 http://archive.ubuntu.com/ubuntu xenial/main amd64 libauthen-sasl-perl all 2.1600-1 [48.7 kB]
 [91mExtracting templates from packages: 12%[0m[91mExtracting templates from packages: 25%[0m[91mExtracting templates from packages: 38%[0m[91mExtracting templates from packages: 50%[0m[91mExtracting templates from packages: 63%[0m[91mExtracting templates from packages: 76%[0m[91mExtracting templates from packages: 88%[0m[91mExtracting templates from packages: 100%
 [0mPreconfiguring packages ...
-Fetched 105 MB in 1min 33s (1128 kB/s)
+Fetched 105 MB in 1min 34s (1112 kB/s)
 Selecting previously unselected package libxau6:amd64.
 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 17779 files and directories currently installed.)
 Preparing to unpack .../libxau6_1%3a1.0.8-1_amd64.deb ...
@@ -977,8 +984,8 @@ Selecting previously unselected package libtie-ixhash-perl.
 Preparing to unpack .../libtie-ixhash-perl_1.23-2_all.deb ...
 Unpacking libtie-ixhash-perl (1.23-2) ...
 Selecting previously unselected package libtiff5:amd64.
-Preparing to unpack .../libtiff5_4.0.6-1_amd64.deb ...
-Unpacking libtiff5:amd64 (4.0.6-1) ...
+Preparing to unpack .../libtiff5_4.0.6-1ubuntu0.1_amd64.deb ...
+Unpacking libtiff5:amd64 (4.0.6-1ubuntu0.1) ...
 Selecting previously unselected package libtk8.6:amd64.
 Preparing to unpack .../libtk8.6_8.6.5-1_amd64.deb ...
 Unpacking libtk8.6:amd64 (8.6.5-1) ...
@@ -1302,7 +1309,7 @@ Setting up libreadline6-dev:amd64 (6.3-8ubuntu2) ...
 Setting up libreadline-dev:amd64 (6.3-8ubuntu2) ...
 Setting up libtcl8.6:amd64 (8.6.5+dfsg-2) ...
 Setting up libtie-ixhash-perl (1.23-2) ...
-Setting up libtiff5:amd64 (4.0.6-1) ...
+Setting up libtiff5:amd64 (4.0.6-1ubuntu0.1) ...
 Setting up libtk8.6:amd64 (8.6.5-1) ...
 Setting up libx11-protocol-perl (0.56-7) ...
 Setting up libxt6:amd64 (1:1.1.5-0ubuntu1) ...
@@ -1372,7 +1379,7 @@ After this operation, 16.5 MB of additional disk space will be used.
 Get:1 http://archive.ubuntu.com/ubuntu xenial/universe amd64 proj-data all 4.9.2-2 [4004 kB]
 Get:2 http://archive.ubuntu.com/ubuntu xenial/universe amd64 libproj9 amd64 4.9.2-2 [143 kB]
 Get:3 http://archive.ubuntu.com/ubuntu xenial/universe amd64 libproj-dev amd64 4.9.2-2 [181 kB]
-Fetched 4327 kB in 6s (682 kB/s)
+Fetched 4327 kB in 5s (821 kB/s)
 Selecting previously unselected package proj-data.
 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 25473 files and directories currently installed.)
 Preparing to unpack .../proj-data_4.9.2-2_all.deb ...
@@ -1405,7 +1412,7 @@ After this operation, 2724 kB of additional disk space will be used.
 Get:1 http://archive.ubuntu.com/ubuntu xenial/universe amd64 libgeos-3.5.0 amd64 3.5.0-1ubuntu2 [477 kB]
 Get:2 http://archive.ubuntu.com/ubuntu xenial/universe amd64 libgeos-c1v5 amd64 3.5.0-1ubuntu2 [52.4 kB]
 Get:3 http://archive.ubuntu.com/ubuntu xenial/universe amd64 libgeos-dev amd64 3.5.0-1ubuntu2 [66.5 kB]
-Fetched 596 kB in 1s (328 kB/s)
+Fetched 596 kB in 1s (400 kB/s)
 Selecting previously unselected package libgeos-3.5.0.
 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 25535 files and directories currently installed.)
 Preparing to unpack .../libgeos-3.5.0_3.5.0-1ubuntu2_amd64.deb ...
@@ -1421,6 +1428,94 @@ Processing triggers for man-db (2.7.5-1) ...
 Setting up libgeos-3.5.0 (3.5.0-1ubuntu2) ...
 Setting up libgeos-c1v5 (3.5.0-1ubuntu2) ...
 Setting up libgeos-dev (3.5.0-1ubuntu2) ...
+Processing triggers for libc-bin (2.23-0ubuntu5) ...
+***** install netcdf and netcdf development libraries *****
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  hdf5-helpers libaec-dev libaec0 libcurl3-gnutls libcurl4-gnutls-dev
+  libhdf5-10 libhdf5-cpp-11 libhdf5-dev libnetcdf11 libsz2 pkg-config
+Suggested packages:
+  libcurl4-doc libcurl3-dbg libgnutls-dev libidn11-dev libkrb5-dev
+  libldap2-dev librtmp-dev libhdf5-doc netcdf-doc
+The following NEW packages will be installed:
+  hdf5-helpers libaec-dev libaec0 libcurl3-gnutls libcurl4-gnutls-dev
+  libhdf5-10 libhdf5-cpp-11 libhdf5-dev libnetcdf-dev libnetcdf11 libsz2
+  netcdf-bin pkg-config
+0 upgraded, 13 newly installed, 0 to remove and 5 not upgraded.
+Need to get 7161 kB of archives.
+After this operation, 38.9 MB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libcurl3-gnutls amd64 7.47.0-1ubuntu2.2 [184 kB]
+Get:2 http://archive.ubuntu.com/ubuntu xenial/universe amd64 hdf5-helpers amd64 1.8.16+docs-4ubuntu1 [12.5 kB]
+Get:3 http://archive.ubuntu.com/ubuntu xenial/universe amd64 libaec0 amd64 0.3.2-1 [18.0 kB]
+Get:4 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libcurl4-gnutls-dev amd64 7.47.0-1ubuntu2.2 [260 kB]
+Get:5 http://archive.ubuntu.com/ubuntu xenial/universe amd64 libsz2 amd64 0.3.2-1 [5048 B]
+Get:6 http://archive.ubuntu.com/ubuntu xenial/universe amd64 libhdf5-10 amd64 1.8.16+docs-4ubuntu1 [995 kB]
+Get:7 http://archive.ubuntu.com/ubuntu xenial/universe amd64 libhdf5-cpp-11 amd64 1.8.16+docs-4ubuntu1 [101 kB]
+Get:8 http://archive.ubuntu.com/ubuntu xenial/universe amd64 libaec-dev amd64 0.3.2-1 [16.6 kB]
+Get:9 http://archive.ubuntu.com/ubuntu xenial/universe amd64 libhdf5-dev amd64 1.8.16+docs-4ubuntu1 [5005 kB]
+Get:10 http://archive.ubuntu.com/ubuntu xenial/universe amd64 libnetcdf11 amd64 1:4.4.0-2 [286 kB]
+Get:11 http://archive.ubuntu.com/ubuntu xenial/universe amd64 libnetcdf-dev amd64 1:4.4.0-2 [36.9 kB]
+Get:12 http://archive.ubuntu.com/ubuntu xenial/universe amd64 netcdf-bin amd64 1:4.4.0-2 [196 kB]
+Get:13 http://archive.ubuntu.com/ubuntu xenial/main amd64 pkg-config amd64 0.29.1-0ubuntu1 [45.0 kB]
+Fetched 7161 kB in 8s (857 kB/s)
+Selecting previously unselected package libcurl3-gnutls:amd64.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 25562 files and directories currently installed.)
+Preparing to unpack .../libcurl3-gnutls_7.47.0-1ubuntu2.2_amd64.deb ...
+Unpacking libcurl3-gnutls:amd64 (7.47.0-1ubuntu2.2) ...
+Selecting previously unselected package hdf5-helpers.
+Preparing to unpack .../hdf5-helpers_1.8.16+docs-4ubuntu1_amd64.deb ...
+Unpacking hdf5-helpers (1.8.16+docs-4ubuntu1) ...
+Selecting previously unselected package libaec0:amd64.
+Preparing to unpack .../libaec0_0.3.2-1_amd64.deb ...
+Unpacking libaec0:amd64 (0.3.2-1) ...
+Selecting previously unselected package libcurl4-gnutls-dev:amd64.
+Preparing to unpack .../libcurl4-gnutls-dev_7.47.0-1ubuntu2.2_amd64.deb ...
+Unpacking libcurl4-gnutls-dev:amd64 (7.47.0-1ubuntu2.2) ...
+Selecting previously unselected package libsz2:amd64.
+Preparing to unpack .../libsz2_0.3.2-1_amd64.deb ...
+Unpacking libsz2:amd64 (0.3.2-1) ...
+Selecting previously unselected package libhdf5-10:amd64.
+Preparing to unpack .../libhdf5-10_1.8.16+docs-4ubuntu1_amd64.deb ...
+Unpacking libhdf5-10:amd64 (1.8.16+docs-4ubuntu1) ...
+Selecting previously unselected package libhdf5-cpp-11:amd64.
+Preparing to unpack .../libhdf5-cpp-11_1.8.16+docs-4ubuntu1_amd64.deb ...
+Unpacking libhdf5-cpp-11:amd64 (1.8.16+docs-4ubuntu1) ...
+Selecting previously unselected package libaec-dev:amd64.
+Preparing to unpack .../libaec-dev_0.3.2-1_amd64.deb ...
+Unpacking libaec-dev:amd64 (0.3.2-1) ...
+Selecting previously unselected package libhdf5-dev.
+Preparing to unpack .../libhdf5-dev_1.8.16+docs-4ubuntu1_amd64.deb ...
+Unpacking libhdf5-dev (1.8.16+docs-4ubuntu1) ...
+Selecting previously unselected package libnetcdf11.
+Preparing to unpack .../libnetcdf11_1%3a4.4.0-2_amd64.deb ...
+Unpacking libnetcdf11 (1:4.4.0-2) ...
+Selecting previously unselected package libnetcdf-dev.
+Preparing to unpack .../libnetcdf-dev_1%3a4.4.0-2_amd64.deb ...
+Unpacking libnetcdf-dev (1:4.4.0-2) ...
+Selecting previously unselected package netcdf-bin.
+Preparing to unpack .../netcdf-bin_1%3a4.4.0-2_amd64.deb ...
+Unpacking netcdf-bin (1:4.4.0-2) ...
+Selecting previously unselected package pkg-config.
+Preparing to unpack .../pkg-config_0.29.1-0ubuntu1_amd64.deb ...
+Unpacking pkg-config (0.29.1-0ubuntu1) ...
+Processing triggers for libc-bin (2.23-0ubuntu5) ...
+Processing triggers for man-db (2.7.5-1) ...
+Setting up libcurl3-gnutls:amd64 (7.47.0-1ubuntu2.2) ...
+Setting up hdf5-helpers (1.8.16+docs-4ubuntu1) ...
+Setting up libaec0:amd64 (0.3.2-1) ...
+Setting up libcurl4-gnutls-dev:amd64 (7.47.0-1ubuntu2.2) ...
+Setting up libsz2:amd64 (0.3.2-1) ...
+Setting up libhdf5-10:amd64 (1.8.16+docs-4ubuntu1) ...
+Setting up libhdf5-cpp-11:amd64 (1.8.16+docs-4ubuntu1) ...
+Setting up libaec-dev:amd64 (0.3.2-1) ...
+Setting up libhdf5-dev (1.8.16+docs-4ubuntu1) ...
+update-alternatives: using /usr/lib/x86_64-linux-gnu/pkgconfig/hdf5-serial.pc to provide /usr/lib/x86_64-linux-gnu/pkgconfig/hdf5.pc (hdf5.pc) in auto mode
+Setting up libnetcdf11 (1:4.4.0-2) ...
+Setting up libnetcdf-dev (1:4.4.0-2) ...
+Setting up netcdf-bin (1:4.4.0-2) ...
+Setting up pkg-config (0.29.1-0ubuntu1) ...
 Processing triggers for libc-bin (2.23-0ubuntu5) ...
 ***** install R packages for geospatial computing *****
 
@@ -1440,20 +1535,45 @@ Type 'demo()' for some demos, 'help()' for on-line help, or
 'help.start()' for an HTML browser interface to help.
 Type 'q()' to quit R.
 
-> install.packages(c("rgdal"), repos="http://cran.us.r-project.org")
-[91mInstalling package into '/usr/local/lib/R/site-library'
+> install.packages(c("rgdal", "rgeos", "raster", "ncdf4", "magrittr"), repos="http://cran.us.r-project.org")
+[91mInstalling packages into '/usr/local/lib/R/site-library'
 (as 'lib' is unspecified)
-[0m[91malso installing the dependency 'sp'
+[0m[91malso installing the dependencies 'sp', 'Rcpp'
 
 [0m[91mtrying URL 'http://cran.us.r-project.org/src/contrib/sp_1.2-4.tar.gz'
 [0m[91mContent type 'application/x-gzip' length 1133711 bytes (1.1 MB)
-[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m==[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m==[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m==
+[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=
 downloaded 1.1 MB
 
-[0m[91mtrying URL 'http://cran.us.r-project.org/src/contrib/rgdal_1.2-5.tar.gz'
+[0m[91mtrying URL 'http://cran.us.r-project.org/src/contrib/Rcpp_0.12.9.tar.gz'
+[0m[91mContent type 'application/x-gzip' length 2372283 bytes (2.3 MB)
+[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=
+downloaded 2.3 MB
+
+trying URL 'http://cran.us.r-project.org/src/contrib/rgdal_1.2-5.tar.gz'
 [0m[91mContent type 'application/x-gzip' length 1652472 bytes (1.6 MB)
-[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m==[0m[91m==[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m==[0m[91m==[0m[91m=[0m[91m=
+[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m==[0m[91m==[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=
 downloaded 1.6 MB
+
+[0m[91mtrying URL 'http://cran.us.r-project.org/src/contrib/rgeos_0.3-22.tar.gz'
+[0m[91mContent type 'application/x-gzip' length 257575 bytes (251 KB)
+[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m
+downloaded 251 KB
+
+[0m[91mtrying URL 'http://cran.us.r-project.org/src/contrib/raster_2.5-8.tar.gz'
+[0m[91mContent type 'application/x-gzip' length 1092017 bytes (1.0 MB)
+[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=
+downloaded 1.0 MB
+
+[0m[91mtrying URL 'http://cran.us.r-project.org/src/contrib/ncdf4_1.15.tar.gz'
+[0m[91mContent type 'application/x-gzip' length 119570 bytes (116 KB)
+[0m[91m=[0m[91m==[0m[91m==[0m[91m=[0m[91m==[0m[91m==[0m[91m=[0m[91m==[0m[91m==[0m[91m==[0m[91m=[0m[91m==[0m[91m==[0m[91m=[0m[91m==[0m[91m==[0m[91m==[0m[91m=[0m[91m==[0m[91m==[0m[91m=[0m[91m==[0m[91m==[0m[91m==[0m[91m=[0m[91m==[0m[91m==[0m[91m=[0m[91m===[0m[91m
+downloaded 116 KB
+
+[0m[91mtrying URL 'http://cran.us.r-project.org/src/contrib/magrittr_1.5.tar.gz'
+[0m[91mContent type 'application/x-gzip' length 200504 bytes (195 KB)
+[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m==[0m[91m=[0m[91m=
+downloaded 195 KB
 
 [0m[91m* installing *source* package 'sp' ...
 [0m[91m** package 'sp' successfully unpacked and MD5 sums checked
@@ -1479,6 +1599,108 @@ gcc -std=gnu99 -shared -L/usr/lib/R/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -o
 [0m[91m** installing vignettes
 [0m[91m** testing if installed package can be loaded
 [0m[91m* DONE (sp)
+[0m[91m* installing *source* package 'Rcpp' ...
+[0m[91m** package 'Rcpp' successfully unpacked and MD5 sums checked
+[0m[91m** libs
+[0mg++ -I/usr/share/R/include -DNDEBUG -I../inst/include/     -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c Date.cpp -o Date.o
+g++ -I/usr/share/R/include -DNDEBUG -I../inst/include/     -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c Module.cpp -o Module.o
+g++ -I/usr/share/R/include -DNDEBUG -I../inst/include/     -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c Rcpp_init.cpp -o Rcpp_init.o
+g++ -I/usr/share/R/include -DNDEBUG -I../inst/include/     -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c api.cpp -o api.o
+g++ -I/usr/share/R/include -DNDEBUG -I../inst/include/     -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c attributes.cpp -o attributes.o
+g++ -I/usr/share/R/include -DNDEBUG -I../inst/include/     -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c barrier.cpp -o barrier.o
+g++ -shared -L/usr/lib/R/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -o Rcpp.so Date.o Module.o Rcpp_init.o api.o attributes.o barrier.o -L/usr/lib/R/lib -lR
+[91minstalling to /usr/local/lib/R/site-library/Rcpp/libs
+[0m[91m** R
+[0m[91m** inst
+[0m[91m** preparing package for lazy loading
+[0m[91m** help
+[0m[91m*** installing help indices
+[0m[91m** building package indices
+[0m[91m** installing vignettes
+[0m[91m** testing if installed package can be loaded
+[0m[91m* DONE (Rcpp)
+[0m[91m* installing *source* package 'ncdf4' ...
+[0m[91m** package 'ncdf4' successfully unpacked and MD5 sums checked
+[0mconfigure.ac: starting
+checking for nc-config... yes
+Using nc-config: nc-config
+Output of nc-config --all:
+
+This netCDF 4.4.0 has been built with the following features: 
+
+  --cc        -> /usr/bin/x86_64-linux-gnu-gcc
+  --cflags    -> -I/usr/include -I/usr/include/hdf5/serial
+  --libs      -> -L/usr/lib -L/usr/lib/x86_64-linux-gnu/hdf5/serial -lnetcdf -lhdf5_hl -lhdf5 -lpthread -lsz -lz -ldl -lm -lcurl
+
+  --has-c++   -> no
+  --cxx       -> 
+  --has-c++4  -> no
+  --cxx4      -> 
+
+  --fc        -> 
+  --fflags    -> 
+  --flibs     -> 
+  --has-f90   -> no
+
+  --has-dap   -> yes
+  --has-nc2   -> yes
+  --has-nc4   -> yes
+  --has-hdf5  -> yes
+  --has-hdf4  -> no
+  --has-pnetcdf-> no
+  --has-szlib -> no
+
+  --prefix    -> /usr
+  --includedir-> /usr/include
+  --version   -> netCDF 4.4.0
+
+---
+netcdf.m4: about to set rpath, here is source string: >-L/usr/lib -L/usr/lib/x86_64-linux-gnu/hdf5/serial -lnetcdf -lhdf5_hl -lhdf5 -lpthread -lsz -lz -ldl -lm -lcurl<
+netcdf.m4: final rpath:   -Wl,-rpath,/usr/lib -Wl,-rpath,/usr/lib/x86_64-linux-gnu/hdf5/serial
+Netcdf library version: netCDF 4.4.0
+Netcdf library has version 4 interface present: yes
+Netcdf library was compiled with C compiler: /usr/bin/x86_64-linux-gnu-gcc
+configure: creating ./config.status
+config.status: creating src/Makevars
+ 
+**********************  Results of ncdf4 package configure *******************
+ 
+netCDF v4 CPP flags      = -I/usr/include -I/usr/include/hdf5/serial
+netCDF v4 LD flags       =   -Wl,-rpath,/usr/lib -Wl,-rpath,/usr/lib/x86_64-linux-gnu/hdf5/serial -L/usr/lib -L/usr/lib/x86_64-linux-gnu/hdf5/serial -lnetcdf -lhdf5_hl -lhdf5 -lpthread -lsz -lz -ldl -lm -lcurl 
+netCDF v4 runtime path   =   -Wl,-rpath,/usr/lib -Wl,-rpath,/usr/lib/x86_64-linux-gnu/hdf5/serial
+ 
+netCDF C compiler used   = /usr/bin/x86_64-linux-gnu-gcc
+R      C compiler used   = gcc -std=gnu99 -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g
+ 
+******************************************************************************
+ 
+netcdf cc arg1: /usr/bin/x86_64-linux-gnu-gcc  R cc arg1: gcc R_IS_GCC: 1 R_IS_CLANG: 0 NETCDF_IS_GCC: 1 NETCDF_IS_CLANG: 0  emit_warning: 0
+[91m** libs
+[0mgcc -std=gnu99 -I/usr/share/R/include -DNDEBUG -I/usr/include -I/usr/include/hdf5/serial     -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c ncdf.c -o ncdf.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG -I/usr/include -I/usr/include/hdf5/serial     -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c ncdf2.c -o ncdf2.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG -I/usr/include -I/usr/include/hdf5/serial     -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c ncdf3.c -o ncdf3.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG -I/usr/include -I/usr/include/hdf5/serial     -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c src_ncdf4.c -o src_ncdf4.o
+gcc -std=gnu99 -shared -L/usr/lib/R/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -o ncdf4.so ncdf.o ncdf2.o ncdf3.o src_ncdf4.o -Wl,-rpath,/usr/lib -Wl,-rpath,/usr/lib/x86_64-linux-gnu/hdf5/serial -L/usr/lib -L/usr/lib/x86_64-linux-gnu/hdf5/serial -lnetcdf -lhdf5_hl -lhdf5 -lpthread -lsz -lz -ldl -lm -lcurl -L/usr/lib/R/lib -lR
+[91minstalling to /usr/local/lib/R/site-library/ncdf4/libs
+[0m[91m** R
+[0m[91m** inst
+[0m[91m** preparing package for lazy loading
+[0m[91m** help
+[0m[91m*** installing help indices
+[0m[91m** building package indices
+[0m[91m** testing if installed package can be loaded
+[0m[91m* DONE (ncdf4)
+[0m[91m* installing *source* package 'magrittr' ...
+[0m[91m** package 'magrittr' successfully unpacked and MD5 sums checked
+[0m[91m** R
+[0m[91m** inst
+[0m[91m** byte-compile and prepare package for lazy loading
+[0m[91m** help
+[0m[91m*** installing help indices
+[0m[91m** building package indices
+[0m[91m** installing vignettes
+[0m[91m** testing if installed package can be loaded
+[0m[91m* DONE (magrittr)
 [0m[91m* installing *source* package 'rgdal' ...
 [0m[91m** package 'rgdal' successfully unpacked and MD5 sums checked
 [0mconfigure: CC: gcc -std=gnu99
@@ -1552,10 +1774,146 @@ g++ -shared -L/usr/lib/R/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -o rgdal.so O
 [0m[91m** installing vignettes
 [0m[91m** testing if installed package can be loaded
 [0m[91m* DONE (rgdal)
+[0m[91m* installing *source* package 'rgeos' ...
+[0m[91m** package 'rgeos' successfully unpacked and MD5 sums checked
+[0mconfigure: CC: gcc -std=gnu99
+configure: CXX: g++
+configure: rgeos: 0.3-22
+checking for /usr/bin/svnversion... no
+configure: svn revision: 544
+checking for geos-config... /usr/bin/geos-config
+checking geos-config usability... yes
+configure: GEOS version: 3.5.0
+checking geos version at least 3.2.0... yes
+checking geos-config clibs... yes
+checking for gcc... gcc -std=gnu99
+checking whether the C compiler works... yes
+checking for C compiler default output file name... a.out
+checking for suffix of executables... 
+checking whether we are cross compiling... no
+checking for suffix of object files... o
+checking whether we are using the GNU C compiler... yes
+checking whether gcc -std=gnu99 accepts -g... yes
+checking for gcc -std=gnu99 option to accept ISO C89... none needed
+checking how to run the C preprocessor... gcc -std=gnu99 -E
+checking for grep that handles long lines and -e... /bin/grep
+checking for egrep... /bin/grep -E
+checking for ANSI C header files... yes
+checking for sys/types.h... yes
+checking for sys/stat.h... yes
+checking for stdlib.h... yes
+checking for string.h... yes
+checking for memory.h... yes
+checking for strings.h... yes
+checking for inttypes.h... yes
+checking for stdint.h... yes
+checking for unistd.h... yes
+checking geos_c.h usability... yes
+checking geos_c.h presence... yes
+checking for geos_c.h... yes
+checking geos: linking with libgeos_c... yes
+configure: PKG_CPPFLAGS:  -I/usr/include
+configure: PKG_LIBS:  -L/usr/lib/x86_64-linux-gnu -lgeos-3.5.0 -L/usr/lib/x86_64-linux-gnu -lgeos_c
+configure: creating ./config.status
+config.status: creating src/Makevars
+[91m** libs
+[0mg++ -I/usr/share/R/include -DNDEBUG -I/usr/include  -I"/usr/local/lib/R/site-library/sp/include"   -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c dummy.cc -o dummy.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG -I/usr/include  -I"/usr/local/lib/R/site-library/sp/include"   -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c init.c -o init.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG -I/usr/include  -I"/usr/local/lib/R/site-library/sp/include"   -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c local_stubs.c -o local_stubs.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG -I/usr/include  -I"/usr/local/lib/R/site-library/sp/include"   -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c rgeos.c -o rgeos.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG -I/usr/include  -I"/usr/local/lib/R/site-library/sp/include"   -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c rgeos_R2geos.c -o rgeos_R2geos.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG -I/usr/include  -I"/usr/local/lib/R/site-library/sp/include"   -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c rgeos_R2geosMP.c -o rgeos_R2geosMP.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG -I/usr/include  -I"/usr/local/lib/R/site-library/sp/include"   -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c rgeos_bbox.c -o rgeos_bbox.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG -I/usr/include  -I"/usr/local/lib/R/site-library/sp/include"   -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c rgeos_buffer.c -o rgeos_buffer.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG -I/usr/include  -I"/usr/local/lib/R/site-library/sp/include"   -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c rgeos_coord.c -o rgeos_coord.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG -I/usr/include  -I"/usr/local/lib/R/site-library/sp/include"   -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c rgeos_geos2R.c -o rgeos_geos2R.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG -I/usr/include  -I"/usr/local/lib/R/site-library/sp/include"   -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c rgeos_linearref.c -o rgeos_linearref.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG -I/usr/include  -I"/usr/local/lib/R/site-library/sp/include"   -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c rgeos_misc.c -o rgeos_misc.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG -I/usr/include  -I"/usr/local/lib/R/site-library/sp/include"   -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c rgeos_poly2nb.c -o rgeos_poly2nb.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG -I/usr/include  -I"/usr/local/lib/R/site-library/sp/include"   -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c rgeos_predicate_binary.c -o rgeos_predicate_binary.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG -I/usr/include  -I"/usr/local/lib/R/site-library/sp/include"   -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c rgeos_predicate_unary.c -o rgeos_predicate_unary.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG -I/usr/include  -I"/usr/local/lib/R/site-library/sp/include"   -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c rgeos_topology.c -o rgeos_topology.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG -I/usr/include  -I"/usr/local/lib/R/site-library/sp/include"   -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c rgeos_topology_binary.c -o rgeos_topology_binary.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG -I/usr/include  -I"/usr/local/lib/R/site-library/sp/include"   -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c rgeos_validate.c -o rgeos_validate.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG -I/usr/include  -I"/usr/local/lib/R/site-library/sp/include"   -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c rgeos_wkt.c -o rgeos_wkt.o
+g++ -shared -L/usr/lib/R/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -o rgeos.so dummy.o init.o local_stubs.o rgeos.o rgeos_R2geos.o rgeos_R2geosMP.o rgeos_bbox.o rgeos_buffer.o rgeos_coord.o rgeos_geos2R.o rgeos_linearref.o rgeos_misc.o rgeos_poly2nb.o rgeos_predicate_binary.o rgeos_predicate_unary.o rgeos_topology.o rgeos_topology_binary.o rgeos_validate.o rgeos_wkt.o -L/usr/lib/x86_64-linux-gnu -lgeos-3.5.0 -L/usr/lib/x86_64-linux-gnu -lgeos_c -L/usr/lib/R/lib -lR
+[91minstalling to /usr/local/lib/R/site-library/rgeos/libs
+[0m[91m** R
+[0m[91m** inst
+[0m[91m** preparing package for lazy loading
+[0m[91m** help
+[0m[91m*** installing help indices
+[0m[91m** building package indices
+[0m[91m** testing if installed package can be loaded
+[0m[91m* DONE (rgeos)
+[0m[91m* installing *source* package 'raster' ...
+[0m[91m** package 'raster' successfully unpacked and MD5 sums checked
+[0m[91m** libs
+[0mg++ -I/usr/share/R/include -DNDEBUG   -I"/usr/local/lib/R/site-library/Rcpp/include"   -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c RcppExports.cpp -o RcppExports.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG   -I"/usr/local/lib/R/site-library/Rcpp/include"   -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c aggregate.c -o aggregate.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG   -I"/usr/local/lib/R/site-library/Rcpp/include"   -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c aggregate_get.c -o aggregate_get.o
+g++ -I/usr/share/R/include -DNDEBUG   -I"/usr/local/lib/R/site-library/Rcpp/include"   -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c bilinear.cpp -o bilinear.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG   -I"/usr/local/lib/R/site-library/Rcpp/include"   -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c broom.c -o broom.o
+g++ -I/usr/share/R/include -DNDEBUG   -I"/usr/local/lib/R/site-library/Rcpp/include"   -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c cellRowCol.cpp -o cellRowCol.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG   -I"/usr/local/lib/R/site-library/Rcpp/include"   -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c clamp.c -o clamp.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG   -I"/usr/local/lib/R/site-library/Rcpp/include"   -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c direction.c -o direction.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG   -I"/usr/local/lib/R/site-library/Rcpp/include"   -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c dist_util.c -o dist_util.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG   -I"/usr/local/lib/R/site-library/Rcpp/include"   -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c distance.c -o distance.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG   -I"/usr/local/lib/R/site-library/Rcpp/include"   -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c edge.c -o edge.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG   -I"/usr/local/lib/R/site-library/Rcpp/include"   -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c focal_fun.c -o focal_fun.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG   -I"/usr/local/lib/R/site-library/Rcpp/include"   -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c focal_get.c -o focal_get.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG   -I"/usr/local/lib/R/site-library/Rcpp/include"   -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c focal_sum.c -o focal_sum.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG   -I"/usr/local/lib/R/site-library/Rcpp/include"   -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c geodesic.c -o geodesic.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG   -I"/usr/local/lib/R/site-library/Rcpp/include"   -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c geolib.c -o geolib.o
+g++ -I/usr/share/R/include -DNDEBUG   -I"/usr/local/lib/R/site-library/Rcpp/include"   -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c getPolygons.cpp -o getPolygons.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG   -I"/usr/local/lib/R/site-library/Rcpp/include"   -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c intersect.c -o intersect.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG   -I"/usr/local/lib/R/site-library/Rcpp/include"   -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c layerize.c -o layerize.o
+g++ -I/usr/share/R/include -DNDEBUG   -I"/usr/local/lib/R/site-library/Rcpp/include"   -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c modal.cpp -o modal.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG   -I"/usr/local/lib/R/site-library/Rcpp/include"   -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c pointinpoly.c -o pointinpoly.o
+g++ -I/usr/share/R/include -DNDEBUG   -I"/usr/local/lib/R/site-library/Rcpp/include"   -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c ppmin.cpp -o ppmin.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG   -I"/usr/local/lib/R/site-library/Rcpp/include"   -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c reclass.c -o reclass.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG   -I"/usr/local/lib/R/site-library/Rcpp/include"   -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c solar.c -o solar.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG   -I"/usr/local/lib/R/site-library/Rcpp/include"   -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c terrain.c -o terrain.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG   -I"/usr/local/lib/R/site-library/Rcpp/include"   -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c util.c -o util.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG   -I"/usr/local/lib/R/site-library/Rcpp/include"   -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c wirth.c -o wirth.o
+g++ -I/usr/share/R/include -DNDEBUG   -I"/usr/local/lib/R/site-library/Rcpp/include"   -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c xyCell.cpp -o xyCell.o
+g++ -shared -L/usr/lib/R/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -o raster.so RcppExports.o aggregate.o aggregate_get.o bilinear.o broom.o cellRowCol.o clamp.o direction.o dist_util.o distance.o edge.o focal_fun.o focal_get.o focal_sum.o geodesic.o geolib.o getPolygons.o intersect.o layerize.o modal.o pointinpoly.o ppmin.o reclass.o solar.o terrain.o util.o wirth.o xyCell.o -L/usr/lib/R/lib -lR
+[91minstalling to /usr/local/lib/R/site-library/raster/libs
+[0m[91m** R
+[0m[91m** inst
+[0m[91m** byte-compile and prepare package for lazy loading
+[0m[91min method for 'brick' with signature 'x="big.matrix"': no definition for class "big.matrix"
+[0m[91min method for 'brick' with signature 'x="kasc"': no definition for class "kasc"
+[0m[91min method for 'brick' with signature 'x="grf"': no definition for class "grf"
+[0m[91min method for 'coerce' with signature '"STFDF","RasterBrick"': no definition for class "STFDF"
+[0m[91min method for 'coerce' with signature '"STSDF","RasterBrick"': no definition for class "STSDF"
+[0m[91min method for 'coerce' with signature '"asc","RasterLayer"': no definition for class "asc"
+[0m[91min method for 'coerce' with signature '"RasterLayer","asc"': no definition for class "asc"
+[0m[91min method for 'coerce' with signature '"kasc","RasterBrick"': no definition for class "kasc"
+[0m[91min method for 'coerce' with signature '"kasc","RasterStack"': no definition for class "kasc"
+[0m[91min method for 'coerce' with signature '"kde","RasterLayer"': no definition for class "kde"
+[0m[91min method for 'coerce' with signature '"grf","RasterBrick"': no definition for class "grf"
+[0m[91min method for 'coerce' with signature '"grf","RasterLayer"': no definition for class "grf"
+[0m[91mCreating a generic function for 'nrow' from package 'base' in package 'raster'
+[0m[91mCreating a generic function for 'ncol' from package 'base' in package 'raster'
+[0m[91min method for 'raster' with signature 'x="big.matrix"': no definition for class "big.matrix"
+[0m[91min method for 'raster' with signature 'x="kasc"': no definition for class "kasc"
+[0m[91min method for 'raster' with signature 'x="asc"': no definition for class "asc"
+[0m[91min method for 'raster' with signature 'x="kde"': no definition for class "kde"
+[0m[91min method for 'raster' with signature 'x="grf"': no definition for class "grf"
+[0m[91mCreating a generic function for 'rowSums' from package 'base' in package 'raster'
+[0m[91mCreating a generic function for 'colSums' from package 'base' in package 'raster'
+[0m[91min method for 'stack' with signature 'x="kasc"': no definition for class "kasc"
+[0m[91m** help
+[0m[91m*** installing help indices
+[0m[91m** building package indices
+[0m[91m** installing vignettes
+[0m[91m** testing if installed package can be loaded
+[0m[91m* DONE (raster)
 [0m[91m
 The downloaded source packages are in
-	'/tmp/RtmpsmZD0e/downloaded_packages'
+	'/tmp/RtmpqBcHZn/downloaded_packages'
 [0m> 
- ---> 485e22071f68
-Removing intermediate container aef2779f90ff
-Successfully built 485e22071f68
+ ---> e98c8a7803cb
+Removing intermediate container 088fbabbcb08
+Successfully built e98c8a7803cb
