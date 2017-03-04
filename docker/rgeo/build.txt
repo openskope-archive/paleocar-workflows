@@ -1,37 +1,40 @@
-Sending build context to Docker daemon 4.608 kB
-Step 1/3 : FROM openskope/gdal
- ---> a0cf1725d7f4
-Step 2/3 : ARG DEBIAN_FRONTEND=noninteractive
+Sending build context to Docker daemon  5.12 kB
+Step 1/6 : FROM openskope/gdal
+ ---> 0cb814e7cbe4
+Step 2/6 : ARG DEBIAN_FRONTEND=noninteractive
  ---> Using cache
- ---> 60c2cfab6ade
-Step 3/3 : RUN echo "***** install R directly from CRAN apt server *****"                                       && echo deb http://cran.rstudio.com/bin/linux/ubuntu xenial/ > /etc/apt/sources.list.d/cran.list    && gpg --keyserver keyserver.ubuntu.com --recv-key E084DAB9                                         && gpg -a --export E084DAB9 |  apt-key add -                                                        && apt-get -y update                                                                                && apt-get -y install r-base                                                                                                                                                                            && echo "***** install libproj cartographic projection library *****"                               && apt-get -y install libproj-dev                                                                                                                                                                       && echo "***** install GEOS libraries *****"                                                        && apt-get -y install libgeos-3.5.0 libgeos-dev                                                                                                                                                        && echo "***** install netcdf and netcdf development libraries *****"                                && apt-get -y install netcdf-bin libnetcdf-dev                                                                                                                                                          && echo '***** install R packages for geospatial computing *****'                                   && export PATH=$PATH:/opt/gdal/gdal-2.1.2/bin/                                                      && export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/gdal/gdal-2.1.2/lib/                                && echo 'install.packages(c("rgdal", "rgeos", "raster", "ncdf4", "magrittr"), repos="http://cran.us.r-project.org")'      > /tmp/install_geospatial_r_packages.R                                                           && R --no-save < /tmp/install_geospatial_r_packages.R
- ---> Running in 088fbabbcb08
+ ---> 86d0dcb000d1
+Step 3/6 : USER root
+ ---> Using cache
+ ---> 8a7028a573d6
+Step 4/6 : RUN echo "***** install R directly from CRAN apt server *****"                                       && echo deb http://cran.rstudio.com/bin/linux/ubuntu xenial/ > /etc/apt/sources.list.d/cran.list    && gpg --keyserver keyserver.ubuntu.com --recv-key E084DAB9                                         && gpg -a --export E084DAB9 |  apt-key add -                                                        && apt-get -y update                                                                                && apt-get -y install r-base                                                                                                                                                                            && echo "***** install libproj cartographic projection library *****"                               && apt-get -y install libproj-dev                                                                                                                                                                       && echo "***** install GEOS libraries *****"                                                        && apt-get -y install libgeos-3.5.0 libgeos-dev                                                                                                                                                         && echo "***** install netcdf and netcdf development libraries *****"                               && apt-get -y install netcdf-bin libnetcdf-dev                                                                                                                                                          && echo '***** install R scripting support packages *****'                                          && echo 'install.packages(c("optparse", "magrittr"), repos="http://cran.us.r-project.org")'            > /tmp/install_r_scripting_packages.R                                                            && R --no-save < /tmp/install_r_scripting_packages.R                                                                                                                                                    && echo '***** install R packages for geospatial computing *****'                                   && echo 'install.packages(c("rgdal", "rgeos", "raster", "ncdf4"), repos="http://cran.us.r-project.org")'      > /tmp/install_geospatial_r_packages.R                                                           && R --no-save < /tmp/install_geospatial_r_packages.R
+ ---> Running in 676633ebac99
 ***** install R directly from CRAN apt server *****
 [91mgpg: directory `/root/.gnupg' created
-[0m[91mgpg: new configuration file `/root/.gnupg/gpg.conf' created
+gpg: new configuration file `/root/.gnupg/gpg.conf' created
 gpg: WARNING: options in `/root/.gnupg/gpg.conf' are not yet active during this run
-[0m[91mgpg: keyring `/root/.gnupg/secring.gpg' created
-[0m[91mgpg: keyring `/root/.gnupg/pubring.gpg' created
-[0m[91mgpg: requesting key E084DAB9 from hkp server keyserver.ubuntu.com
+gpg: keyring `/root/.gnupg/secring.gpg' created
+gpg: keyring `/root/.gnupg/pubring.gpg' created
+gpg: requesting key E084DAB9 from hkp server keyserver.ubuntu.com
 [0m[91mgpg: /root/.gnupg/trustdb.gpg: trustdb created
 [0m[91mgpg: key E084DAB9: public key "Michael Rutter <marutter@gmail.com>" imported
-gpg: Total number processed: 1
+[0m[91mgpg: Total number processed: 1
 gpg:               imported: 1  (RSA: 1)
 [0mOK
-Get:1 http://cran.rstudio.com/bin/linux/ubuntu xenial/ InRelease [3590 B]
-Hit:2 http://archive.ubuntu.com/ubuntu xenial InRelease
-Get:3 http://cran.rstudio.com/bin/linux/ubuntu xenial/ Packages [54.9 kB]
-Get:4 http://archive.ubuntu.com/ubuntu xenial-updates InRelease [102 kB]
+Hit:1 http://archive.ubuntu.com/ubuntu xenial InRelease
+Get:2 http://cran.rstudio.com/bin/linux/ubuntu xenial/ InRelease [3590 B]
+Get:3 http://archive.ubuntu.com/ubuntu xenial-updates InRelease [102 kB]
+Get:4 http://cran.rstudio.com/bin/linux/ubuntu xenial/ Packages [54.9 kB]
 Get:5 http://archive.ubuntu.com/ubuntu xenial-security InRelease [102 kB]
 Get:6 http://archive.ubuntu.com/ubuntu xenial-updates/main Sources [295 kB]
-Get:7 http://archive.ubuntu.com/ubuntu xenial-updates/universe Sources [166 kB]
+Get:7 http://archive.ubuntu.com/ubuntu xenial-updates/universe Sources [173 kB]
 Get:8 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 Packages [618 kB]
-Get:9 http://archive.ubuntu.com/ubuntu xenial-updates/universe amd64 Packages [518 kB]
+Get:9 http://archive.ubuntu.com/ubuntu xenial-updates/universe amd64 Packages [541 kB]
 Get:10 http://archive.ubuntu.com/ubuntu xenial-security/main Sources [73.4 kB]
-Get:11 http://archive.ubuntu.com/ubuntu xenial-security/universe Sources [23.4 kB]
+Get:11 http://archive.ubuntu.com/ubuntu xenial-security/universe Sources [26.3 kB]
 Get:12 http://archive.ubuntu.com/ubuntu xenial-security/main amd64 Packages [273 kB]
-Get:13 http://archive.ubuntu.com/ubuntu xenial-security/universe amd64 Packages [96.2 kB]
-Fetched 2325 kB in 3s (666 kB/s)
+Get:13 http://archive.ubuntu.com/ubuntu xenial-security/universe amd64 Packages [109 kB]
+Fetched 2372 kB in 3s (724 kB/s)
 Reading package lists...
 Reading package lists...
 Building dependency tree...
@@ -157,66 +160,66 @@ Get:3 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxdmcp6 amd64 1:1.1.2
 Get:4 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxcb1 amd64 1.11.1-1ubuntu1 [40.0 kB]
 Get:5 http://archive.ubuntu.com/ubuntu xenial/main amd64 libx11-data all 2:1.6.3-1ubuntu2 [113 kB]
 Get:6 http://archive.ubuntu.com/ubuntu xenial/main amd64 libx11-6 amd64 2:1.6.3-1ubuntu2 [571 kB]
-Get:7 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxext6 amd64 2:1.3.3-1 [29.4 kB]
-Get:8 http://archive.ubuntu.com/ubuntu xenial/main amd64 groff-base amd64 1.22.3-7 [1151 kB]
-Get:9 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-cran-boot 1.3-18-1cran1xenial0 [573 kB]
-Get:10 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-cran-cluster 2.0.5-1xenial0 [490 kB]
-Get:11 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-cran-foreign 0.8.67-1xenial0 [211 kB]
-Get:12 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-cran-mass 7.3-45-1xenial0 [1019 kB]
-Get:13 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-cran-kernsmooth 2.23-15-2xenial0 [81.8 kB]
+Get:7 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-cran-boot 1.3-18-1cran1xenial0 [573 kB]
+Get:8 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-cran-cluster 2.0.5-1xenial0 [490 kB]
+Get:9 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-cran-foreign 0.8.67-1xenial0 [211 kB]
+Get:10 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-cran-mass 7.3-45-1xenial0 [1019 kB]
+Get:11 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxext6 amd64 2:1.3.3-1 [29.4 kB]
+Get:12 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-cran-kernsmooth 2.23-15-2xenial0 [81.8 kB]
+Get:13 http://archive.ubuntu.com/ubuntu xenial/main amd64 groff-base amd64 1.22.3-7 [1151 kB]
 Get:14 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-cran-lattice 0.20-34-1xenial0 [714 kB]
 Get:15 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-cran-nlme 3.1.131-2xenial0 [2044 kB]
-Get:16 http://archive.ubuntu.com/ubuntu xenial/main amd64 bsdmainutils amd64 9.0.6ubuntu3 [174 kB]
-Get:17 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-cran-matrix 1.2-8-1xenial0 [2334 kB]
-Get:18 http://archive.ubuntu.com/ubuntu xenial/main amd64 libpipeline1 amd64 1.4.1-2 [24.6 kB]
-Get:19 http://archive.ubuntu.com/ubuntu xenial/main amd64 man-db amd64 2.7.5-1 [854 kB]
-Get:20 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-cran-mgcv 1.8-16-1cran1xenial0 [2102 kB]
-Get:21 http://archive.ubuntu.com/ubuntu xenial/main amd64 sgml-base all 1.26+nmu4ubuntu1 [12.5 kB]
-Get:22 http://archive.ubuntu.com/ubuntu xenial/main amd64 fonts-dejavu-core all 2.35-1 [1039 kB]
-Get:23 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-cran-survival 2.39-4-2xenial0 [4592 kB]
-Get:24 http://archive.ubuntu.com/ubuntu xenial/main amd64 ucf all 3.0036 [52.9 kB]
-Get:25 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 fontconfig-config all 2.11.94-0ubuntu1.1 [49.9 kB]
-Get:26 http://archive.ubuntu.com/ubuntu xenial/main amd64 libpng12-0 amd64 1.2.54-1ubuntu1 [116 kB]
-Get:27 http://archive.ubuntu.com/ubuntu xenial/main amd64 libfreetype6 amd64 2.6.1-0.1ubuntu2 [316 kB]
-Get:28 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libfontconfig1 amd64 2.11.94-0ubuntu1.1 [131 kB]
-Get:29 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 fontconfig amd64 2.11.94-0ubuntu1.1 [178 kB]
-Get:30 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-cran-class 7.3-14-1xenial0 [81.2 kB]
-Get:31 http://archive.ubuntu.com/ubuntu xenial/main amd64 x11-common all 1:7.7+13ubuntu3 [22.4 kB]
-Get:32 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-cran-nnet 7.3-12-1xenial0 [97.0 kB]
-Get:33 http://archive.ubuntu.com/ubuntu xenial/main amd64 libice6 amd64 2:1.0.9-1 [39.2 kB]
-Get:34 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-cran-spatial 7.3-11-1xenial0 [118 kB]
-Get:35 http://archive.ubuntu.com/ubuntu xenial/main amd64 libjpeg-turbo8 amd64 1.4.2-0ubuntu3 [111 kB]
-Get:36 http://archive.ubuntu.com/ubuntu xenial/main amd64 libpcrecpp0v5 amd64 2:8.38-3.1 [15.2 kB]
-Get:37 http://archive.ubuntu.com/ubuntu xenial/main amd64 libsigsegv2 amd64 2.10-4 [14.1 kB]
-Get:38 http://archive.ubuntu.com/ubuntu xenial/main amd64 libsm6 amd64 2:1.2.2-1 [15.8 kB]
-Get:39 http://archive.ubuntu.com/ubuntu xenial/main amd64 libunistring0 amd64 0.9.3-5.2ubuntu1 [279 kB]
-Get:40 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-cran-codetools 0.2-15-1cran1xenial0 [45.0 kB]
-Get:41 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxcomposite1 amd64 1:0.4.4-1 [7714 B]
-Get:42 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxfixes3 amd64 1:5.0.1-2 [11.1 kB]
-Get:43 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxrender1 amd64 1:0.9.9-0ubuntu1 [18.5 kB]
-Get:44 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxcursor1 amd64 1:1.1.14-1 [22.8 kB]
-Get:45 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxdamage1 amd64 1:1.1.4-2 [6946 B]
-Get:46 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxft2 amd64 2.3.2-1 [36.1 kB]
-Get:47 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-recommended 3.3.2-1xenial0 [2708 B]
-Get:48 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxinerama1 amd64 2:1.1.3-1 [7908 B]
-Get:49 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxshmfence1 amd64 1.2-1 [5042 B]
-Get:50 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxss1 amd64 1:1.2.2-1 [8582 B]
-Get:51 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxtst6 amd64 2:1.2.2-1 [14.1 kB]
-Get:52 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-base 3.3.2-1xenial0 [40.4 kB]
-Get:53 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxv1 amd64 2:1.0.10-1 [10.3 kB]
-Get:54 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxxf86dga1 amd64 2:1.1.4-1 [13.7 kB]
-Get:55 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxxf86vm1 amd64 1:1.1.4-1 [10.6 kB]
-Get:56 http://archive.ubuntu.com/ubuntu xenial/main amd64 libjbig0 amd64 2.1-3.1 [26.6 kB]
-Get:57 http://archive.ubuntu.com/ubuntu xenial/main amd64 libtxc-dxtn-s2tc0 amd64 0~git20131104-1.1 [51.8 kB]
-Get:58 http://archive.ubuntu.com/ubuntu xenial/main amd64 libbsd0 amd64 0.8.2-1 [41.7 kB]
-Get:59 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-base-dev 3.3.2-1xenial0 [4306 B]
-Get:60 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libnettle6 amd64 3.2-1ubuntu0.16.04.1 [93.5 kB]
-Get:61 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-doc-html 3.3.2-1xenial0 [547 kB]
-Get:62 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libhogweed4 amd64 3.2-1ubuntu0.16.04.1 [136 kB]
-Get:63 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libp11-kit0 amd64 0.23.2-5~ubuntu16.04.1 [105 kB]
-Get:64 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libtasn1-6 amd64 4.7-3ubuntu0.16.04.1 [43.2 kB]
-Get:65 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libgnutls30 amd64 3.4.10-4ubuntu1.2 [547 kB]
-Get:66 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-base-html 3.3.2-1xenial0 [85.7 kB]
+Get:16 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-cran-matrix 1.2-8-1xenial0 [2334 kB]
+Get:17 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-cran-mgcv 1.8-16-1cran1xenial0 [2102 kB]
+Get:18 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-cran-survival 2.39-4-2xenial0 [4592 kB]
+Get:19 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-cran-class 7.3-14-1xenial0 [81.2 kB]
+Get:20 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-cran-nnet 7.3-12-1xenial0 [97.0 kB]
+Get:21 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-cran-spatial 7.3-11-1xenial0 [118 kB]
+Get:22 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-cran-codetools 0.2-15-1cran1xenial0 [45.0 kB]
+Get:23 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-recommended 3.3.2-1xenial0 [2708 B]
+Get:24 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-base 3.3.2-1xenial0 [40.4 kB]
+Get:25 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-base-dev 3.3.2-1xenial0 [4306 B]
+Get:26 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-doc-html 3.3.2-1xenial0 [547 kB]
+Get:27 http://cran.rstudio.com/bin/linux/ubuntu xenial/ r-base-html 3.3.2-1xenial0 [85.7 kB]
+Get:28 http://archive.ubuntu.com/ubuntu xenial/main amd64 bsdmainutils amd64 9.0.6ubuntu3 [174 kB]
+Get:29 http://archive.ubuntu.com/ubuntu xenial/main amd64 libpipeline1 amd64 1.4.1-2 [24.6 kB]
+Get:30 http://archive.ubuntu.com/ubuntu xenial/main amd64 man-db amd64 2.7.5-1 [854 kB]
+Get:31 http://archive.ubuntu.com/ubuntu xenial/main amd64 sgml-base all 1.26+nmu4ubuntu1 [12.5 kB]
+Get:32 http://archive.ubuntu.com/ubuntu xenial/main amd64 fonts-dejavu-core all 2.35-1 [1039 kB]
+Get:33 http://archive.ubuntu.com/ubuntu xenial/main amd64 ucf all 3.0036 [52.9 kB]
+Get:34 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 fontconfig-config all 2.11.94-0ubuntu1.1 [49.9 kB]
+Get:35 http://archive.ubuntu.com/ubuntu xenial/main amd64 libpng12-0 amd64 1.2.54-1ubuntu1 [116 kB]
+Get:36 http://archive.ubuntu.com/ubuntu xenial/main amd64 libfreetype6 amd64 2.6.1-0.1ubuntu2 [316 kB]
+Get:37 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libfontconfig1 amd64 2.11.94-0ubuntu1.1 [131 kB]
+Get:38 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 fontconfig amd64 2.11.94-0ubuntu1.1 [178 kB]
+Get:39 http://archive.ubuntu.com/ubuntu xenial/main amd64 x11-common all 1:7.7+13ubuntu3 [22.4 kB]
+Get:40 http://archive.ubuntu.com/ubuntu xenial/main amd64 libice6 amd64 2:1.0.9-1 [39.2 kB]
+Get:41 http://archive.ubuntu.com/ubuntu xenial/main amd64 libjpeg-turbo8 amd64 1.4.2-0ubuntu3 [111 kB]
+Get:42 http://archive.ubuntu.com/ubuntu xenial/main amd64 libpcrecpp0v5 amd64 2:8.38-3.1 [15.2 kB]
+Get:43 http://archive.ubuntu.com/ubuntu xenial/main amd64 libsigsegv2 amd64 2.10-4 [14.1 kB]
+Get:44 http://archive.ubuntu.com/ubuntu xenial/main amd64 libsm6 amd64 2:1.2.2-1 [15.8 kB]
+Get:45 http://archive.ubuntu.com/ubuntu xenial/main amd64 libunistring0 amd64 0.9.3-5.2ubuntu1 [279 kB]
+Get:46 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxcomposite1 amd64 1:0.4.4-1 [7714 B]
+Get:47 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxfixes3 amd64 1:5.0.1-2 [11.1 kB]
+Get:48 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxrender1 amd64 1:0.9.9-0ubuntu1 [18.5 kB]
+Get:49 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxcursor1 amd64 1:1.1.14-1 [22.8 kB]
+Get:50 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxdamage1 amd64 1:1.1.4-2 [6946 B]
+Get:51 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxft2 amd64 2.3.2-1 [36.1 kB]
+Get:52 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxinerama1 amd64 2:1.1.3-1 [7908 B]
+Get:53 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxshmfence1 amd64 1.2-1 [5042 B]
+Get:54 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxss1 amd64 1:1.2.2-1 [8582 B]
+Get:55 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxtst6 amd64 2:1.2.2-1 [14.1 kB]
+Get:56 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxv1 amd64 2:1.0.10-1 [10.3 kB]
+Get:57 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxxf86dga1 amd64 2:1.1.4-1 [13.7 kB]
+Get:58 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxxf86vm1 amd64 1:1.1.4-1 [10.6 kB]
+Get:59 http://archive.ubuntu.com/ubuntu xenial/main amd64 libjbig0 amd64 2.1-3.1 [26.6 kB]
+Get:60 http://archive.ubuntu.com/ubuntu xenial/main amd64 libtxc-dxtn-s2tc0 amd64 0~git20131104-1.1 [51.8 kB]
+Get:61 http://archive.ubuntu.com/ubuntu xenial/main amd64 libbsd0 amd64 0.8.2-1 [41.7 kB]
+Get:62 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libnettle6 amd64 3.2-1ubuntu0.16.04.1 [93.5 kB]
+Get:63 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libhogweed4 amd64 3.2-1ubuntu0.16.04.1 [136 kB]
+Get:64 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libp11-kit0 amd64 0.23.2-5~ubuntu16.04.1 [105 kB]
+Get:65 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libtasn1-6 amd64 4.7-3ubuntu0.16.04.1 [43.2 kB]
+Get:66 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libgnutls30 amd64 3.4.10-4ubuntu1.2 [547 kB]
 Get:67 http://archive.ubuntu.com/ubuntu xenial/main amd64 libtext-iconv-perl amd64 1.7-5build4 [13.0 kB]
 Get:68 http://archive.ubuntu.com/ubuntu xenial/main amd64 libcap-ng0 amd64 0.7.7-1 [10.9 kB]
 Get:69 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libdbus-1-3 amd64 1.10.6-1ubuntu3.3 [161 kB]
@@ -389,7 +392,7 @@ Get:235 http://archive.ubuntu.com/ubuntu xenial/main amd64 x11-xserver-utils amd
 Get:236 http://archive.ubuntu.com/ubuntu xenial/main amd64 libauthen-sasl-perl all 2.1600-1 [48.7 kB]
 [91mExtracting templates from packages: 12%[0m[91mExtracting templates from packages: 25%[0m[91mExtracting templates from packages: 38%[0m[91mExtracting templates from packages: 50%[0m[91mExtracting templates from packages: 63%[0m[91mExtracting templates from packages: 76%[0m[91mExtracting templates from packages: 88%[0m[91mExtracting templates from packages: 100%
 [0mPreconfiguring packages ...
-Fetched 105 MB in 1min 34s (1112 kB/s)
+Fetched 105 MB in 1min 32s (1143 kB/s)
 Selecting previously unselected package libxau6:amd64.
 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 17779 files and directories currently installed.)
 Preparing to unpack .../libxau6_1%3a1.0.8-1_amd64.deb ...
@@ -1379,7 +1382,7 @@ After this operation, 16.5 MB of additional disk space will be used.
 Get:1 http://archive.ubuntu.com/ubuntu xenial/universe amd64 proj-data all 4.9.2-2 [4004 kB]
 Get:2 http://archive.ubuntu.com/ubuntu xenial/universe amd64 libproj9 amd64 4.9.2-2 [143 kB]
 Get:3 http://archive.ubuntu.com/ubuntu xenial/universe amd64 libproj-dev amd64 4.9.2-2 [181 kB]
-Fetched 4327 kB in 5s (821 kB/s)
+Fetched 4327 kB in 7s (599 kB/s)
 Selecting previously unselected package proj-data.
 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 25473 files and directories currently installed.)
 Preparing to unpack .../proj-data_4.9.2-2_all.deb ...
@@ -1412,7 +1415,7 @@ After this operation, 2724 kB of additional disk space will be used.
 Get:1 http://archive.ubuntu.com/ubuntu xenial/universe amd64 libgeos-3.5.0 amd64 3.5.0-1ubuntu2 [477 kB]
 Get:2 http://archive.ubuntu.com/ubuntu xenial/universe amd64 libgeos-c1v5 amd64 3.5.0-1ubuntu2 [52.4 kB]
 Get:3 http://archive.ubuntu.com/ubuntu xenial/universe amd64 libgeos-dev amd64 3.5.0-1ubuntu2 [66.5 kB]
-Fetched 596 kB in 1s (400 kB/s)
+Fetched 596 kB in 1s (335 kB/s)
 Selecting previously unselected package libgeos-3.5.0.
 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 25535 files and directories currently installed.)
 Preparing to unpack .../libgeos-3.5.0_3.5.0-1ubuntu2_amd64.deb ...
@@ -1459,7 +1462,7 @@ Get:10 http://archive.ubuntu.com/ubuntu xenial/universe amd64 libnetcdf11 amd64 
 Get:11 http://archive.ubuntu.com/ubuntu xenial/universe amd64 libnetcdf-dev amd64 1:4.4.0-2 [36.9 kB]
 Get:12 http://archive.ubuntu.com/ubuntu xenial/universe amd64 netcdf-bin amd64 1:4.4.0-2 [196 kB]
 Get:13 http://archive.ubuntu.com/ubuntu xenial/main amd64 pkg-config amd64 0.29.1-0ubuntu1 [45.0 kB]
-Fetched 7161 kB in 8s (857 kB/s)
+Fetched 7161 kB in 7s (900 kB/s)
 Selecting previously unselected package libcurl3-gnutls:amd64.
 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 25562 files and directories currently installed.)
 Preparing to unpack .../libcurl3-gnutls_7.47.0-1ubuntu2.2_amd64.deb ...
@@ -1517,6 +1520,81 @@ Setting up libnetcdf-dev (1:4.4.0-2) ...
 Setting up netcdf-bin (1:4.4.0-2) ...
 Setting up pkg-config (0.29.1-0ubuntu1) ...
 Processing triggers for libc-bin (2.23-0ubuntu5) ...
+***** install R scripting support packages *****
+
+R version 3.3.2 (2016-10-31) -- "Sincere Pumpkin Patch"
+Copyright (C) 2016 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> install.packages(c("optparse", "magrittr"), repos="http://cran.us.r-project.org")
+[91mInstalling packages into '/usr/local/lib/R/site-library'
+(as 'lib' is unspecified)
+[0m[91malso installing the dependency 'getopt'
+
+[0m[91mtrying URL 'http://cran.us.r-project.org/src/contrib/getopt_1.20.0.tar.gz'
+[0m[91mContent type 'application/x-gzip' length 16473 bytes (16 KB)
+[0m[91m============[0m[91m============[0m[91m=============[0m[91m=============[0m[91m
+downloaded 16 KB
+
+[0m[91mtrying URL 'http://cran.us.r-project.org/src/contrib/optparse_1.3.2.tar.gz'
+[0m[91mContent type 'application/x-gzip' length 36827 bytes (35 KB)
+[0m[91m=====[0m[91m======[0m[91m=====[0m[91m======[0m[91m=====[0m[91m======[0m[91m=====[0m[91m======[0m[91m======[0m[91m
+downloaded 35 KB
+
+[0m[91mtrying URL 'http://cran.us.r-project.org/src/contrib/magrittr_1.5.tar.gz'
+[0m[91mContent type 'application/x-gzip' length 200504 bytes (195 KB)
+[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m==[0m[91m=[0m[91m=[0m[91m
+[0m[91mdownloaded 195 KB
+
+[0m[91m* installing *source* package 'getopt' ...
+[0m[91m** package 'getopt' successfully unpacked and MD5 sums checked
+[0m[91m** R
+[0m[91m** inst
+[0m[91m** preparing package for lazy loading
+[0m[91m** help
+[0m[91m*** installing help indices
+[0m[91m** building package indices
+[0m[91m** testing if installed package can be loaded
+[0m[91m* DONE (getopt)
+[0m[91m* installing *source* package 'magrittr' ...
+[0m[91m** package 'magrittr' successfully unpacked and MD5 sums checked
+[0m[91m** R
+[0m[91m** inst
+[0m[91m** byte-compile and prepare package for lazy loading
+[0m[91m** help
+[0m[91m*** installing help indices
+[0m[91m** building package indices
+[0m[91m** installing vignettes
+[0m[91m** testing if installed package can be loaded
+[0m[91m* DONE (magrittr)
+[0m[91m* installing *source* package 'optparse' ...
+[0m[91m** package 'optparse' successfully unpacked and MD5 sums checked
+[0m[91m** R
+[0m[91m** exec
+[0m[91m** inst
+[0m[91m** preparing package for lazy loading
+[0m[91m** help
+[0m[91m*** installing help indices
+[0m[91m** building package indices
+[0m[91m** installing vignettes
+[0m[91m** testing if installed package can be loaded
+[0m[91m* DONE (optparse)
+[0m[91m
+The downloaded source packages are in
+	'/tmp/RtmprSTyNG/downloaded_packages'
+[0m> 
 ***** install R packages for geospatial computing *****
 
 R version 3.3.2 (2016-10-31) -- "Sincere Pumpkin Patch"
@@ -1535,45 +1613,40 @@ Type 'demo()' for some demos, 'help()' for on-line help, or
 'help.start()' for an HTML browser interface to help.
 Type 'q()' to quit R.
 
-> install.packages(c("rgdal", "rgeos", "raster", "ncdf4", "magrittr"), repos="http://cran.us.r-project.org")
+> install.packages(c("rgdal", "rgeos", "raster", "ncdf4"), repos="http://cran.us.r-project.org")
 [91mInstalling packages into '/usr/local/lib/R/site-library'
 (as 'lib' is unspecified)
 [0m[91malso installing the dependencies 'sp', 'Rcpp'
 
 [0m[91mtrying URL 'http://cran.us.r-project.org/src/contrib/sp_1.2-4.tar.gz'
 [0m[91mContent type 'application/x-gzip' length 1133711 bytes (1.1 MB)
-[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=
+[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m===[0m[91m==[0m[91m=[0m[91m==[0m[91m=[0m[91m=
 downloaded 1.1 MB
 
 [0m[91mtrying URL 'http://cran.us.r-project.org/src/contrib/Rcpp_0.12.9.tar.gz'
 [0m[91mContent type 'application/x-gzip' length 2372283 bytes (2.3 MB)
-[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=
+[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m====[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m
 downloaded 2.3 MB
 
-trying URL 'http://cran.us.r-project.org/src/contrib/rgdal_1.2-5.tar.gz'
+[0m[91mtrying URL 'http://cran.us.r-project.org/src/contrib/rgdal_1.2-5.tar.gz'
 [0m[91mContent type 'application/x-gzip' length 1652472 bytes (1.6 MB)
-[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m==[0m[91m==[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=
+[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=====[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=
 downloaded 1.6 MB
 
-[0m[91mtrying URL 'http://cran.us.r-project.org/src/contrib/rgeos_0.3-22.tar.gz'
+trying URL 'http://cran.us.r-project.org/src/contrib/rgeos_0.3-22.tar.gz'
 [0m[91mContent type 'application/x-gzip' length 257575 bytes (251 KB)
 [0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m
 downloaded 251 KB
 
 [0m[91mtrying URL 'http://cran.us.r-project.org/src/contrib/raster_2.5-8.tar.gz'
 [0m[91mContent type 'application/x-gzip' length 1092017 bytes (1.0 MB)
-[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=
+[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=========
 downloaded 1.0 MB
 
-[0m[91mtrying URL 'http://cran.us.r-project.org/src/contrib/ncdf4_1.15.tar.gz'
+trying URL 'http://cran.us.r-project.org/src/contrib/ncdf4_1.15.tar.gz'
 [0m[91mContent type 'application/x-gzip' length 119570 bytes (116 KB)
 [0m[91m=[0m[91m==[0m[91m==[0m[91m=[0m[91m==[0m[91m==[0m[91m=[0m[91m==[0m[91m==[0m[91m==[0m[91m=[0m[91m==[0m[91m==[0m[91m=[0m[91m==[0m[91m==[0m[91m==[0m[91m=[0m[91m==[0m[91m==[0m[91m=[0m[91m==[0m[91m==[0m[91m==[0m[91m=[0m[91m==[0m[91m==[0m[91m=[0m[91m===[0m[91m
 downloaded 116 KB
-
-[0m[91mtrying URL 'http://cran.us.r-project.org/src/contrib/magrittr_1.5.tar.gz'
-[0m[91mContent type 'application/x-gzip' length 200504 bytes (195 KB)
-[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m==[0m[91m=[0m[91m=
-downloaded 195 KB
 
 [0m[91m* installing *source* package 'sp' ...
 [0m[91m** package 'sp' successfully unpacked and MD5 sums checked
@@ -1690,17 +1763,6 @@ gcc -std=gnu99 -shared -L/usr/lib/R/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -o
 [0m[91m** building package indices
 [0m[91m** testing if installed package can be loaded
 [0m[91m* DONE (ncdf4)
-[0m[91m* installing *source* package 'magrittr' ...
-[0m[91m** package 'magrittr' successfully unpacked and MD5 sums checked
-[0m[91m** R
-[0m[91m** inst
-[0m[91m** byte-compile and prepare package for lazy loading
-[0m[91m** help
-[0m[91m*** installing help indices
-[0m[91m** building package indices
-[0m[91m** installing vignettes
-[0m[91m** testing if installed package can be loaded
-[0m[91m* DONE (magrittr)
 [0m[91m* installing *source* package 'rgdal' ...
 [0m[91m** package 'rgdal' successfully unpacked and MD5 sums checked
 [0mconfigure: CC: gcc -std=gnu99
@@ -1912,8 +1974,16 @@ g++ -shared -L/usr/lib/R/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -o raster.so 
 [0m[91m* DONE (raster)
 [0m[91m
 The downloaded source packages are in
-	'/tmp/RtmpqBcHZn/downloaded_packages'
+	'/tmp/Rtmpk18lJd/downloaded_packages'
 [0m> 
- ---> e98c8a7803cb
-Removing intermediate container 088fbabbcb08
-Successfully built e98c8a7803cb
+ ---> 285204e1b76c
+Removing intermediate container 676633ebac99
+Step 5/6 : USER nobody
+ ---> Running in 23bd85786bf9
+ ---> bd8d25b4e800
+Removing intermediate container 23bd85786bf9
+Step 6/6 : CMD echo "Usage: docker run openskope/rgeospatial Rscript <r-script-file> [r-script-arguments]"
+ ---> Running in 142d7804505d
+ ---> 0ec644ccf3c2
+Removing intermediate container 142d7804505d
+Successfully built 0ec644ccf3c2

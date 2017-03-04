@@ -17,11 +17,16 @@ RUN echo "***** install R directly from CRAN apt server *****"                  
  && echo "***** install GEOS libraries *****"                                                       \
  && apt-get -y install libgeos-3.5.0 libgeos-dev                                                    \
                                                                                                     \
-&& echo "***** install netcdf and netcdf development libraries *****"                               \
+ && echo "***** install netcdf and netcdf development libraries *****"                              \
  && apt-get -y install netcdf-bin libnetcdf-dev                                                     \
                                                                                                     \
+ && echo '***** install R scripting support packages *****'                                         \
+ && echo 'install.packages(c("optparse", "magrittr"), repos="http://cran.us.r-project.org")'        \
+    > /tmp/install_r_scripting_packages.R                                                           \
+ && R --no-save < /tmp/install_r_scripting_packages.R                                               \
+                                                                                                    \
  && echo '***** install R packages for geospatial computing *****'                                  \
- && echo 'install.packages(c("rgdal", "rgeos", "raster", "ncdf4", "magrittr"), repos="http://cran.us.r-project.org")'  \
+ && echo 'install.packages(c("rgdal", "rgeos", "raster", "ncdf4"), repos="http://cran.us.r-project.org")'  \
     > /tmp/install_geospatial_r_packages.R                                                          \
  && R --no-save < /tmp/install_geospatial_r_packages.R
 
