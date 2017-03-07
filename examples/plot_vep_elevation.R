@@ -10,7 +10,7 @@ vepPolygon <- polygon_from_extent(raster::extent(672800,740000,4102000,4170000),
 
 # Get the NED (USA ONLY)
 # Returns a raster
-NED <- get_ned(template=vepPolygon,
-               label="VEPIIN")
+NED <- get_ned(template=vepPolygon,  label="VEPIIN")
 
+png('vep_elevation.png')
 raster::plot(NED)
