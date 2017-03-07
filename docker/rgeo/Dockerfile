@@ -30,6 +30,6 @@ RUN echo "***** install R directly from CRAN apt server *****"                  
     > /tmp/install_geospatial_r_packages.R                                                          \
  && R --no-save < /tmp/install_geospatial_r_packages.R
 
-USER nobody
+USER skope
 
 CMD echo "Usage: docker run openskope/rgeospatial Rscript <r-script-file> [r-script-arguments]"

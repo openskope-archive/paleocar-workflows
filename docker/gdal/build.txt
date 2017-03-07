@@ -1,23 +1,28 @@
-Sending build context to Docker daemon 6.656 kB
-Step 1/6 : FROM ubuntu:xenial-20170119
- ---> f49eec89601e
-Step 2/6 : ARG DEBIAN_FRONTEND=noninteractive
+Sending build context to Docker daemon 5.632 kB
+Step 1/9 : FROM openskope/base
+ ---> c26a87e4cc7b
+Step 2/9 : ARG DEBIAN_FRONTEND=noninteractive
  ---> Using cache
- ---> 5d92d42f92ad
-Step 3/6 : RUN echo '***** update apt packages and install utilities *****'                                     && apt-get -y update                                                                                && apt-get -y install -y apt-utils                                                                  && apt-get -y install wget tree makepasswd                                                                                                                                                              && echo '***** Install Python2, Python3, and pip for both *****'                                    && apt-get -y install python python-pip python3 python3-pip                                         && pip2 install --upgrade pip                                                                       && pip3 install --upgrade pip                                                                                                                                                                           && echo '***** install numpy package for both Python2 and Python3 *****'                            && pip2 install numpy                                                                               && pip3 install numpy                                                                                                                                                                                   && echo '***** download source package for GDAL 2.1.2 *****'                                        && mkdir -p /tmp/builds                                                                             && cd /tmp/builds                                                                                   && wget http://download.osgeo.org/gdal/2.1.2/gdal-2.1.2.tar.gz                                      && gunzip gdal-2.1.2.tar.gz                                                                         && tar -xvvf gdal-2.1.2.tar                                                                                                                                                                             && echo '***** configure and build GDAL with Python2 bindings ******'                               && cd /tmp/builds/gdal-2.1.2                                                                        && mkdir -p /opt/gdal                                                                               && ./configure --prefix /opt/gdal/gdal-2.1.2 --with-python=$(which python2)                         && make install                                                                                                                                                                                         && echo '***** then reconfigure and rebuild for Python3 bindings *****'                             && ./configure --prefix /opt/gdal/gdal-2.1.2 --with-python=$(which python3)                         && make install                                                                                                                                                                                         && echo '***** create the skope user *****'                                                         && useradd skope --gid sudo                                                                                            --shell /bin/bash                                                                                   --create-home                                                                                       --password `echo skope | makepasswd --crypt-md5 --clearfrom - | cut -b11-`
+ ---> df92685d8913
+Step 3/9 : USER root
  ---> Using cache
- ---> 2e0885ef3a4b
-Step 4/6 : RUN echo '***** set up enviroment for running GDAL with Python2 bindings *****'                      && echo "export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/gdal/gdal-2.1.2/lib/" >> /etc/environment     && echo "export PATH=$PATH:/opt/gdal/gdal-2.1.2/bin/" >> /etc/environment                           && echo "export PYTHONPATH=/opt/gdal/gdal-2.1.2/lib/python2.7/site-packages/" >> /etc/environment
- ---> Running in f1d868a86cd3
-***** set up enviroment for running GDAL with Python2 bindings *****
- ---> 1dc4e4254a25
-Removing intermediate container f1d868a86cd3
-Step 5/6 : USER skope
- ---> Running in 748e0a19bbb2
- ---> 4b9fda752a99
-Removing intermediate container 748e0a19bbb2
-Step 6/6 : CMD echo "Provide a gdal command as an argument to docker run"
- ---> Running in b40fa8613e14
- ---> 11ecd736e77b
-Removing intermediate container b40fa8613e14
-Successfully built 11ecd736e77b
+ ---> 65f61f4f67ff
+Step 4/9 : RUN echo '***** Install Python2, Python3, and pip for both *****'                                    && apt-get -y install python python-pip python3 python3-pip                                         && pip2 install --upgrade pip                                                                       && pip3 install --upgrade pip                                                                                                                                                                           && echo '***** install numpy package for both Python2 and Python3 *****'                            && pip2 install numpy                                                                               && pip3 install numpy                                                                                                                                                                                   && echo '***** download source package for GDAL 2.1.2 *****'                                        && mkdir -p /tmp/builds                                                                             && cd /tmp/builds                                                                                   && wget http://download.osgeo.org/gdal/2.1.2/gdal-2.1.2.tar.gz                                      && gunzip gdal-2.1.2.tar.gz                                                                         && tar -xvvf gdal-2.1.2.tar                                                                                                                                                                             && echo '***** configure and build GDAL with Python2 bindings ******'                               && cd /tmp/builds/gdal-2.1.2                                                                        && mkdir -p /opt/gdal                                                                               && ./configure --prefix /opt/gdal/gdal-2.1.2 --with-python=$(which python2)                         && make install                                                                                                                                                                                         && echo '***** then reconfigure and rebuild for Python3 bindings *****'                             && ./configure --prefix /opt/gdal/gdal-2.1.2 --with-python=$(which python3)                         && make install                                                                                                                                                                                         && echo '**** clean up GDAL build directories *****'                                                && rm -rf /tmp/builds
+ ---> Using cache
+ ---> 74d6218bc635
+Step 5/9 : ENV LD_LIBRARY_PATH /opt/gdal/gdal-2.1.2/lib/
+ ---> Using cache
+ ---> b70c16f0b726
+Step 6/9 : ENV PATH /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/gdal/gdal-2.1.2/bin/
+ ---> Using cache
+ ---> 8fb3bcb1854c
+Step 7/9 : ENV PYTHONPATH /opt/gdal/gdal-2.1.2/lib/python2.7/site-packages/
+ ---> Using cache
+ ---> 7fb51b5c4ed0
+Step 8/9 : USER skope
+ ---> Using cache
+ ---> df32c8258fae
+Step 9/9 : CMD echo "Usage: docker run openskope/gdal <gdal-command> [gdal-command-arguments]"
+ ---> Using cache
+ ---> e2b0b7ebacd2
+Successfully built e2b0b7ebacd2

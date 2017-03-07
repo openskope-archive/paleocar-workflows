@@ -1,13 +1,9 @@
-from ubuntu:xenial-20170119
+from openskope/base
 
 ARG DEBIAN_FRONTEND=noninteractive
+USER root
  
-RUN echo '***** update apt packages and install utilities *****'                                    \
- && apt-get -y update                                                                               \
- && apt-get -y install -y apt-utils                                                                 \
- && apt-get -y install wget tree                                                                    \
-                                                                                                    \
- && echo '***** Install Python2, Python3, and pip for both *****'                                   \
+RUN echo '***** Install Python2, Python3, and pip for both *****'                                   \
  && apt-get -y install python python-pip python3 python3-pip                                        \
  && pip2 install --upgrade pip                                                                      \
  && pip3 install --upgrade pip                                                                      \
@@ -31,15 +27,15 @@ RUN echo '***** update apt packages and install utilities *****'                
                                                                                                     \
  && echo '***** then reconfigure and rebuild for Python3 bindings *****'                            \
  && ./configure --prefix /opt/gdal/gdal-2.1.2 --with-python=$(which python3)                        \
- && make install
+ && make install                                                                                    \
+                                                                                                    \
+ && echo '**** clean up GDAL build directories *****'                                               \
+ && rm -rf /tmp/builds
 
 ENV LD_LIBRARY_PATH=/opt/gdal/gdal-2.1.2/lib/
 ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/gdal/gdal-2.1.2/bin/
 ENV PYTHONPATH=/opt/gdal/gdal-2.1.2/lib/python2.7/site-packages/
 
-WORKDIR /data
-VOLUME ["/data"]
-
-USER nobody
+USER skope
 
 CMD echo "Usage: docker run openskope/gdal <gdal-command> [gdal-command-arguments]"
