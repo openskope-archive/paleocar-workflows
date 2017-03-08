@@ -1,5 +1,416 @@
-Sending build context to Docker daemon 3.072 kB
-Step 1/2 : FROM openskope/feddata
- ---> a4972bc21336
-Step 2/2 : ARG DEBIAN_FRONTEND=noninteractive && echo '***** install R packages needed by PaleoCAR *****' && echo 'install.packages(c("survival"), repos="http://cran.us.r-project.org")' > /tmp/install_paleocar_r_dependencies.R && R --no-save < /tmp/install_paleocar_r_dependencies.R && echo '***** install the bocinsky/paleocar package from GitHub *****' && echo 'devtools::install_github("bocinsky/paleocar")' > /tmp/install_paleocar.R && R --no-save < /tmp/install_paleocar.R
-ARG requires exactly one argument
+Sending build context to Docker daemon  2.56 kB
+Step 1/6 : FROM openskope/feddata
+ ---> 0b74645df367
+Step 2/6 : ARG DEBIAN_FRONTEND=noninteractive
+ ---> Running in 43d35faa3c54
+ ---> 9ed7fedeaec4
+Removing intermediate container 43d35faa3c54
+Step 3/6 : USER root
+ ---> Running in 97188917fb11
+ ---> e286d37c4799
+Removing intermediate container 97188917fb11
+Step 4/6 : RUN echo '***** install the bocinsky/paleocar package from GitHub *****'                             && echo 'devtools::install_github("bocinsky/paleocar")' > /tmp/install_paleocar.R                   && R --no-save < /tmp/install_paleocar.R
+ ---> Running in 3397eb0b9cee
+***** install the bocinsky/paleocar package from GitHub *****
+
+R version 3.3.2 (2016-10-31) -- "Sincere Pumpkin Patch"
+Copyright (C) 2016 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> devtools::install_github("bocinsky/paleocar")
+[91mDownloading GitHub repo bocinsky/paleocar@master
+from URL https://api.github.com/repos/bocinsky/paleocar/zipball/master
+[0m[91mInstalling paleocar
+[0m[91mtrying URL 'https://cran.rstudio.com/src/contrib/care_1.1.9.tar.gz'
+[0m[91mContent type 'application/x-gzip' length 120661 bytes (117 KB)
+======[0m[91m=[0m[91m============[0m[91m=[0m[91m==[0m[91m==[0m[91m=[0m[91m=[0m[91m=======[0m[91m=======[0m[91m=======[0m[91m===
+downloaded 117 KB
+
+[0m[91mInstalling care
+[0m[91mtrying URL 'https://cran.rstudio.com/src/contrib/corpcor_1.6.8.tar.gz'
+[0m[91mContent type 'application/x-gzip' length 22290 bytes (21 KB)
+===================================[0m[91m===============
+downloaded 21 KB
+
+[0m[91mInstalling corpcor
+[0m[91m'/usr/lib/R/bin/R' --no-site-file --no-environ --no-save --no-restore --quiet  \
+  CMD INSTALL '/tmp/RtmpdHKM0N/devtools71adafee4/corpcor'  \
+  --library='/usr/local/lib/R/site-library' --install-tests 
+[0m[91m
+[0m[91m* installing *source* package 'corpcor' ...
+[0m[91m** package 'corpcor' successfully unpacked and MD5 sums checked
+[0m[91m** R
+[0m[91m** preparing package for lazy loading
+[0m[91m** help
+[0m[91m*** installing help indices
+[0m[91m** building package indices
+[0m[91m** testing if installed package can be loaded
+[0m[91m* DONE (corpcor)
+[0m[91m'/usr/lib/R/bin/R' --no-site-file --no-environ --no-save --no-restore --quiet  \
+  CMD INSTALL '/tmp/RtmpdHKM0N/devtools7df18089/care'  \
+  --library='/usr/local/lib/R/site-library' --install-tests 
+
+[0m[91m* installing *source* package 'care' ...
+[0m[91m** package 'care' successfully unpacked and MD5 sums checked
+[0m[91m** R
+[0m[91m** data
+[0m[91m** inst
+[0m[91m** preparing package for lazy loading
+[0m[91m** help
+[0m[91m*** installing help indices
+[0m[91m** building package indices
+[0m[91m** testing if installed package can be loaded
+[0m[91m* DONE (care)
+[0m[91mtrying URL 'https://cran.rstudio.com/src/contrib/forecast_8.0.tar.gz'
+[0m[91mContent type 'application/x-gzip' length 709664 bytes (693 KB)
+=[0m[91m=[0m[91m=[0m[91m==[0m[91m=[0m[91m==[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m==[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m==[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m==[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m==[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m==[0m[91m=[0m[91m=[0m[91m=[0m[91m=
+downloaded 693 KB
+
+[0m[91mInstalling forecast
+[0m[91mtrying URL 'https://cran.rstudio.com/src/contrib/RcppArmadillo_0.7.700.0.0.tar.gz'
+[0m[91mContent type 'application/x-gzip' length 1075328 bytes (1.0 MB)
+=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=
+downloaded 1.0 MB
+
+[0m[91mInstalling RcppArmadillo
+[0m[91m'/usr/lib/R/bin/R' --no-site-file --no-environ --no-save --no-restore --quiet  \
+  CMD INSTALL '/tmp/RtmpdHKM0N/devtools76c301ec1/RcppArmadillo'  \
+  --library='/usr/local/lib/R/site-library' --install-tests 
+
+[0m[91m* installing *source* package 'RcppArmadillo' ...
+[0m[91m** package 'RcppArmadillo' successfully unpacked and MD5 sums checked
+[0mchecking whether the C++ compiler works... yes
+checking for C++ compiler default output file name... a.out
+checking for suffix of executables... 
+checking whether we are cross compiling... no
+checking for suffix of object files... o
+checking whether we are using the GNU C++ compiler... yes
+checking whether g++ accepts -g... yes
+checking how to run the C++ preprocessor... g++ -E
+checking whether we are using the GNU C++ compiler... (cached) yes
+checking whether g++ accepts -g... (cached) yes
+checking whether g++ version is sufficient... (5.4.0) yes
+checking LAPACK_LIBS... system LAPACK found
+configure: creating ./config.status
+config.status: creating inst/include/RcppArmadilloLapack.h
+[91m** libs
+[0mg++ -I/usr/share/R/include -DNDEBUG   -I"/usr/local/lib/R/site-library/Rcpp/include"  -I../inst/include -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c RcppArmadillo.cpp -o RcppArmadillo.o
+g++ -I/usr/share/R/include -DNDEBUG   -I"/usr/local/lib/R/site-library/Rcpp/include"  -I../inst/include -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c RcppExports.cpp -o RcppExports.o
+g++ -I/usr/share/R/include -DNDEBUG   -I"/usr/local/lib/R/site-library/Rcpp/include"  -I../inst/include -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c fastLm.cpp -o fastLm.o
+g++ -shared -L/usr/lib/R/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -o RcppArmadillo.so RcppArmadillo.o RcppExports.o fastLm.o -llapack -lblas -lgfortran -lm -lquadmath -L/usr/lib/R/lib -lR
+[91minstalling to /usr/local/lib/R/site-library/RcppArmadillo/libs
+[0m[91m** R
+[0m[91m** inst
+[0m[91m** tests
+[0m[91m** preparing package for lazy loading
+[0m[91m** help
+[0m[91m*** installing help indices
+[0m[91m** building package indices
+[0m[91m** installing vignettes
+[0m[91m** testing if installed package can be loaded
+[0m[91m* DONE (RcppArmadillo)
+[0m[91mtrying URL 'https://cran.rstudio.com/src/contrib/fracdiff_1.4-2.tar.gz'
+[0m[91mContent type 'application/x-gzip' length 57636 bytes (56 KB)
+=============[0m[91m==============[0m[91m===============[0m[91m========
+downloaded 56 KB
+
+[0m[91mInstalling fracdiff
+[0m[91m'/usr/lib/R/bin/R' --no-site-file --no-environ --no-save --no-restore --quiet  \
+  CMD INSTALL '/tmp/RtmpdHKM0N/devtools711962fe2/fracdiff'  \
+  --library='/usr/local/lib/R/site-library' --install-tests 
+[0m[91m
+[0m[91m* installing *source* package 'fracdiff' ...
+[0m[91m** package 'fracdiff' successfully unpacked and MD5 sums checked
+[0m[91m** libs
+[0mgcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c fdcore.c -o fdcore.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c fdgam.c -o fdgam.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c fdhess.c -o fdhess.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c fdmin.c -o fdmin.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c fdsim.c -o fdsim.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c init.c -o init.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c pmult.c -o pmult.o
+gcc -std=gnu99 -shared -L/usr/lib/R/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -o fracdiff.so fdcore.o fdgam.o fdhess.o fdmin.o fdsim.o init.o pmult.o -lblas -lgfortran -lm -lquadmath -L/usr/lib/R/lib -lR
+[91minstalling to /usr/local/lib/R/site-library/fracdiff/libs
+[0m[91m** R
+[0m[91m** tests
+[0m[91m** preparing package for lazy loading
+[0m[91m** help
+[0m[91m*** installing help indices
+[0m[91m** building package indices
+[0m[91m** testing if installed package can be loaded
+[0m[91m* DONE (fracdiff)
+[0m[91mtrying URL 'https://cran.rstudio.com/src/contrib/lmtest_0.9-35.tar.gz'
+[0m[91mContent type 'application/x-gzip' length 183575 bytes (179 KB)
+=====[0m[91m===[0m[91m=====[0m[91m====[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m===[0m[91m====[0m[91m=====[0m[91m=[0m[91m==[0m[91m====[0m[91m=====[0m[91m====
+downloaded 179 KB
+
+[0m[91mInstalling lmtest
+[0m[91mtrying URL 'https://cran.rstudio.com/src/contrib/zoo_1.7-14.tar.gz'
+[0m[91mContent type 'application/x-gzip' length 845540 bytes (825 KB)
+[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=[0m[91m=
+downloaded 825 KB
+
+[0m[91mInstalling zoo
+[0m[91m'/usr/lib/R/bin/R' --no-site-file --no-environ --no-save --no-restore --quiet  \
+  CMD INSTALL '/tmp/RtmpdHKM0N/devtools72def2d7c/zoo'  \
+  --library='/usr/local/lib/R/site-library' --install-tests 
+
+[0m[91m* installing *source* package 'zoo' ...
+[0m[91m** package 'zoo' successfully unpacked and MD5 sums checked
+[0m[91m** libs
+[0mgcc -std=gnu99 -I/usr/share/R/include -DNDEBUG -I../inst/include     -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c coredata.c -o coredata.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG -I../inst/include     -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c init.c -o init.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG -I../inst/include     -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c lag.c -o lag.o
+gcc -std=gnu99 -shared -L/usr/lib/R/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -o zoo.so coredata.o init.o lag.o -L/usr/lib/R/lib -lR
+[91minstalling to /usr/local/lib/R/site-library/zoo/libs
+[0m[91m** R
+[0m[91m** demo
+[0m[91m** inst
+[0m[91m** tests
+[0m[91m** preparing package for lazy loading
+[0m[91m** help
+[0m[91m*** installing help indices
+[0m[91m** building package indices
+[0m[91m** installing vignettes
+[0m[91m** testing if installed package can be loaded
+[0m[91m* DONE (zoo)
+[0m[91m'/usr/lib/R/bin/R' --no-site-file --no-environ --no-save --no-restore --quiet  \
+  CMD INSTALL '/tmp/RtmpdHKM0N/devtools7126238ad/lmtest'  \
+  --library='/usr/local/lib/R/site-library' --install-tests 
+
+[0m[91m* installing *source* package 'lmtest' ...
+[0m[91m** package 'lmtest' successfully unpacked and MD5 sums checked
+[0m[91m** libs
+[0mgfortran   -fpic  -g -O2 -fstack-protector-strong  -c pan.f -o pan.o
+gcc -std=gnu99 -shared -L/usr/lib/R/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -o lmtest.so pan.o -lgfortran -lm -lquadmath -L/usr/lib/R/lib -lR
+[91minstalling to /usr/local/lib/R/site-library/lmtest/libs
+[0m[91m** R
+[0m[91m** data
+[0m[91m*** moving datasets to lazyload DB
+[0m[91m** inst
+[0m[91m** tests
+[0m[91m** preparing package for lazy loading
+[0m[91m** help
+[0m[91m*** installing help indices
+[0m[91m** building package indices
+[0m[91m** installing vignettes
+[0m[91m** testing if installed package can be loaded
+[0m[91m* DONE (lmtest)
+[0m[91mtrying URL 'https://cran.rstudio.com/src/contrib/timeDate_3012.100.tar.gz'
+[0m[91mContent type 'application/x-gzip' length 314306 bytes (306 KB)
+==[0m[91m===[0m[91m==[0m[91m===[0m[91m===[0m[91m==[0m[91m===[0m[91m==[0m[91m===[0m[91m===[0m[91m==[0m[91m===[0m[91m==[0m[91m===[0m[91m===[0m[91m==[0m[91m===[0m[91m==[0m[91m====
+downloaded 306 KB
+
+[0m[91mInstalling timeDate
+[0m[91m'/usr/lib/R/bin/R' --no-site-file --no-environ --no-save --no-restore --quiet  \
+  CMD INSTALL '/tmp/RtmpdHKM0N/devtools74748115/timeDate'  \
+  --library='/usr/local/lib/R/site-library' --install-tests 
+[0m[91m
+[0m[91m* installing *source* package 'timeDate' ...
+[0m[91m** package 'timeDate' successfully unpacked and MD5 sums checked
+[0m[91m** R
+[0m[91m** inst
+[0m[91m** tests
+[0m[91m** preparing package for lazy loading
+[0m[91mCreating a generic function for 'sample' from package 'base' in package 'timeDate'
+[0m[91mCreating a generic function for 'getDataPart' from package 'methods' in package 'timeDate'
+[0m[91mCreating a generic function for 'abline' from package 'graphics' in package 'timeDate'
+[0m[91m** help
+[0m[91m*** installing help indices
+[0m[91m** building package indices
+[0m[91m** testing if installed package can be loaded
+[0m[91m* DONE (timeDate)
+[0m[91mtrying URL 'https://cran.rstudio.com/src/contrib/tseries_0.10-38.tar.gz'
+[0m[91mContent type 'application/x-gzip' length 165693 bytes (161 KB)
+====[0m[91m====[0m[91m=====[0m[91m====[0m[91m==[0m[91m=====[0m[91m=====[0m[91m===[0m[91m===[0m[91m=====[0m[91m===[0m[91m==[0m[91m=====
+downloaded 161 KB
+
+[0m[91mInstalling tseries
+[0m[91mtrying URL 'https://cran.rstudio.com/src/contrib/quadprog_1.5-5.tar.gz'
+[0m[91mContent type 'application/x-gzip' length 33651 bytes (32 KB)
+[0m[91m==[0m[91m================================================
+downloaded 32 KB
+
+[0m[91mInstalling quadprog
+[0m[91m'/usr/lib/R/bin/R' --no-site-file --no-environ --no-save --no-restore --quiet  \
+  CMD INSTALL '/tmp/RtmpdHKM0N/devtools72b0cc551/quadprog'  \
+  --library='/usr/local/lib/R/site-library' --install-tests 
+[0m[91m
+[0m[91m* installing *source* package 'quadprog' ...
+[0m[91m** package 'quadprog' successfully unpacked and MD5 sums checked
+[0m[91m** libs
+[0mgfortran  -fvisibility=hidden -fpic  -g -O2 -fstack-protector-strong  -c aind.f -o aind.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c init.c -o init.o
+gfortran -fvisibility=hidden -fpic -g -O2 -fstack-protector-strong -ffloat-store   -c -o solve.QP.compact.o solve.QP.compact.f
+gfortran -fvisibility=hidden -fpic -g -O2 -fstack-protector-strong -ffloat-store   -c -o solve.QP.o solve.QP.f
+gfortran  -fvisibility=hidden -fpic  -g -O2 -fstack-protector-strong  -c util.f -o util.o
+gcc -std=gnu99 -shared -L/usr/lib/R/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -o quadprog.so aind.o init.o solve.QP.compact.o solve.QP.o util.o -lblas -lgfortran -lm -lquadmath -lgfortran -lm -lquadmath -L/usr/lib/R/lib -lR
+[91minstalling to /usr/local/lib/R/site-library/quadprog/libs
+[0m[91m** R
+[0m[91m** tests
+[0m[91m** preparing package for lazy loading
+[0m[91m** help
+[0m[91m*** installing help indices
+[0m[91m** building package indices
+[0m[91m** testing if installed package can be loaded
+[0m[91m* DONE (quadprog)
+[0m[91m'/usr/lib/R/bin/R' --no-site-file --no-environ --no-save --no-restore --quiet  \
+  CMD INSTALL '/tmp/RtmpdHKM0N/devtools76bd33f39/tseries'  \
+  --library='/usr/local/lib/R/site-library' --install-tests 
+
+[0m[91m* installing *source* package 'tseries' ...
+[0m[91m** package 'tseries' successfully unpacked and MD5 sums checked
+[0m[91m** libs
+[0mgcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c arma.c -o arma.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c bdstest.c -o bdstest.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c boot.c -o boot.o
+gfortran   -fpic  -g -O2 -fstack-protector-strong  -c dsumsl.f -o dsumsl.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c formats.c -o formats.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c garch.c -o garch.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c init.c -o init.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c ppsum.c -o ppsum.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c tsutils.c -o tsutils.o
+gcc -std=gnu99 -shared -L/usr/lib/R/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -o tseries.so arma.o bdstest.o boot.o dsumsl.o formats.o garch.o init.o ppsum.o tsutils.o -lblas -lgfortran -lm -lquadmath -lgfortran -lm -lquadmath -L/usr/lib/R/lib -lR
+[91minstalling to /usr/local/lib/R/site-library/tseries/libs
+[0m[91m** R
+[0m[91m** data
+[0m[91m** inst
+[0m[91m** preparing package for lazy loading
+[0m[91m** help
+[0m[91m*** installing help indices
+[0m[91m** building package indices
+[0m[91m** testing if installed package can be loaded
+[0m[91m* DONE (tseries)
+[0m[91mSkipping install of 'zoo' from a cran remote, the SHA1 (1.7-14) has not changed since last install.
+  Use `force = TRUE` to force installation
+[0m[91m'/usr/lib/R/bin/R' --no-site-file --no-environ --no-save --no-restore --quiet  \
+  CMD INSTALL '/tmp/RtmpdHKM0N/devtools740ca23ca/forecast'  \
+  --library='/usr/local/lib/R/site-library' --install-tests 
+
+[0m[91m* installing *source* package 'forecast' ...
+[0m[91m** package 'forecast' successfully unpacked and MD5 sums checked
+[0m[91m** libs
+[0mg++ -I/usr/share/R/include -DNDEBUG   -I"/usr/local/lib/R/site-library/Rcpp/include" -I"/usr/local/lib/R/site-library/RcppArmadillo/include"   -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c calcBATS.cpp -o calcBATS.o
+g++ -I/usr/share/R/include -DNDEBUG   -I"/usr/local/lib/R/site-library/Rcpp/include" -I"/usr/local/lib/R/site-library/RcppArmadillo/include"   -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c calcTBATS.cpp -o calcTBATS.o
+g++ -I/usr/share/R/include -DNDEBUG   -I"/usr/local/lib/R/site-library/Rcpp/include" -I"/usr/local/lib/R/site-library/RcppArmadillo/include"   -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c etsTargetFunction.cpp -o etsTargetFunction.o
+g++ -I/usr/share/R/include -DNDEBUG   -I"/usr/local/lib/R/site-library/Rcpp/include" -I"/usr/local/lib/R/site-library/RcppArmadillo/include"   -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c etsTargetFunctionWrapper.cpp -o etsTargetFunctionWrapper.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG   -I"/usr/local/lib/R/site-library/Rcpp/include" -I"/usr/local/lib/R/site-library/RcppArmadillo/include"   -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c etscalc.c -o etscalc.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG   -I"/usr/local/lib/R/site-library/Rcpp/include" -I"/usr/local/lib/R/site-library/RcppArmadillo/include"   -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c etspolyroot.c -o etspolyroot.o
+g++ -I/usr/share/R/include -DNDEBUG   -I"/usr/local/lib/R/site-library/Rcpp/include" -I"/usr/local/lib/R/site-library/RcppArmadillo/include"   -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c makeBATSMatrices.cpp -o makeBATSMatrices.o
+g++ -I/usr/share/R/include -DNDEBUG   -I"/usr/local/lib/R/site-library/Rcpp/include" -I"/usr/local/lib/R/site-library/RcppArmadillo/include"   -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c makeTBATSMatrices.cpp -o makeTBATSMatrices.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG   -I"/usr/local/lib/R/site-library/Rcpp/include" -I"/usr/local/lib/R/site-library/RcppArmadillo/include"   -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c registerDynamicSymbol.c -o registerDynamicSymbol.o
+g++ -I/usr/share/R/include -DNDEBUG   -I"/usr/local/lib/R/site-library/Rcpp/include" -I"/usr/local/lib/R/site-library/RcppArmadillo/include"   -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c updateMatrices.cpp -o updateMatrices.o
+g++ -I/usr/share/R/include -DNDEBUG   -I"/usr/local/lib/R/site-library/Rcpp/include" -I"/usr/local/lib/R/site-library/RcppArmadillo/include"   -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c updateTBATSMatrices.cpp -o updateTBATSMatrices.o
+g++ -shared -L/usr/lib/R/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -o forecast.so calcBATS.o calcTBATS.o etsTargetFunction.o etsTargetFunctionWrapper.o etscalc.o etspolyroot.o makeBATSMatrices.o makeTBATSMatrices.o registerDynamicSymbol.o updateMatrices.o updateTBATSMatrices.o -llapack -lblas -lgfortran -lm -lquadmath -L/usr/lib/R/lib -lR
+[91minstalling to /usr/local/lib/R/site-library/forecast/libs
+[0m[91m** R
+[0m[91m** data
+[0m[91m*** moving datasets to lazyload DB
+[0m[91m** inst
+[0m[91m** tests
+[0m[91m** byte-compile and prepare package for lazy loading
+[0m[91m** help
+[0m[91m*** installing help indices
+[0m[91m** building package indices
+[0m[91m** installing vignettes
+[0m[91m** testing if installed package can be loaded
+[0m[91m* DONE (forecast)
+[0m[91mtrying URL 'https://cran.rstudio.com/src/contrib/matrixStats_0.51.0.tar.gz'
+[0m[91mContent type 'application/x-gzip' length 168465 bytes (164 KB)
+====[0m[91m=====[0m[91m=====[0m[91m====[0m[91m=====[0m[91m=====[0m[91m===[0m[91m=====[0m[91m=====[0m[91m===[0m[91m===[0m[91m===
+downloaded 164 KB
+
+[0m[91mInstalling matrixStats
+[0m[91m'/usr/lib/R/bin/R' --no-site-file --no-environ --no-save --no-restore --quiet  \
+  CMD INSTALL '/tmp/RtmpdHKM0N/devtools732aa4716/matrixStats'  \
+  --library='/usr/local/lib/R/site-library' --install-tests 
+
+[0m[91m* installing *source* package 'matrixStats' ...
+[0m[91m** package 'matrixStats' successfully unpacked and MD5 sums checked
+[0m[91m** libs
+[0mgcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c allocMatrix2.c -o allocMatrix2.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c anyMissing.c -o anyMissing.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c binCounts.c -o binCounts.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c binMeans.c -o binMeans.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c colCounts.c -o colCounts.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c colOrderStats.c -o colOrderStats.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c colRanges.c -o colRanges.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c diff2.c -o diff2.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c indexByRow.c -o indexByRow.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c init.c -o init.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c logSumExp.c -o logSumExp.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c meanOver.c -o meanOver.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c productExpSumLog.c -o productExpSumLog.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c psortKM.c -o psortKM.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c rowCounts.c -o rowCounts.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c rowCumMinMaxs.c -o rowCumMinMaxs.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c rowCumprods.c -o rowCumprods.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c rowCumsums.c -o rowCumsums.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c rowDiffs.c -o rowDiffs.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c rowLogSumExp.c -o rowLogSumExp.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c rowMads.c -o rowMads.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c rowMedians.c -o rowMedians.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c rowOrderStats.c -o rowOrderStats.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c rowRanges.c -o rowRanges.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c rowRanksWithTies.c -o rowRanksWithTies.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c rowVars.c -o rowVars.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c signTabulate.c -o signTabulate.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c sumOver.c -o sumOver.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c validateIndices.c -o validateIndices.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c weightedMean.c -o weightedMean.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c weightedMedian.c -o weightedMedian.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c x_OP_y.c -o x_OP_y.o
+gcc -std=gnu99 -shared -L/usr/lib/R/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -o matrixStats.so allocMatrix2.o anyMissing.o binCounts.o binMeans.o colCounts.o colOrderStats.o colRanges.o diff2.o indexByRow.o init.o logSumExp.o meanOver.o productExpSumLog.o psortKM.o rowCounts.o rowCumMinMaxs.o rowCumprods.o rowCumsums.o rowDiffs.o rowLogSumExp.o rowMads.o rowMedians.o rowOrderStats.o rowRanges.o rowRanksWithTies.o rowVars.o signTabulate.o sumOver.o validateIndices.o weightedMean.o weightedMedian.o x_OP_y.o -L/usr/lib/R/lib -lR
+[91minstalling to /usr/local/lib/R/site-library/matrixStats/libs
+[0m[91m** R
+[0m[91m** inst
+[0m[91m** tests
+[0m[91m** byte-compile and prepare package for lazy loading
+[0m[91m** help
+[0m[91m*** installing help indices
+[0m[91m** building package indices
+[0m[91m** installing vignettes
+[0m[91m** testing if installed package can be loaded
+[0m[91m* DONE (matrixStats)
+[0m[91mSkipping install of 'zoo' from a cran remote, the SHA1 (1.7-14) has not changed since last install.
+  Use `force = TRUE` to force installation
+[0m[91m'/usr/lib/R/bin/R' --no-site-file --no-environ --no-save --no-restore --quiet  \
+  CMD INSTALL '/tmp/RtmpdHKM0N/devtools7544b5dd9/bocinsky-paleocar-540f914'  \
+  --library='/usr/local/lib/R/site-library' --install-tests 
+[0m[91m
+[0m[91m* installing *source* package 'paleocar' ...
+[0m[91m** R
+[0m[91m** data
+[0m[91m*** moving datasets to lazyload DB
+[0m[91m** inst
+[0m[91m** tests
+[0m[91m** preparing package for lazy loading
+[0m[91m** help
+[0m[91m*** installing help indices
+[0m[91m** building package indices
+[0m[91m** testing if installed package can be loaded
+[0m[91m* DONE (paleocar)
+[0m> 
+ ---> 8cf42384b8f4
+Removing intermediate container 3397eb0b9cee
+Step 5/6 : USER skope
+ ---> Running in ab264bd45e68
+ ---> 84fcaf5122c0
+Removing intermediate container ab264bd45e68
+Step 6/6 : CMD echo "Usage: docker run openskope/paleocar Rscript <r-script-using-paleocar> [r-script-arguments]"
+ ---> Running in ce53d880821b
+ ---> 7bde188af06a
+Removing intermediate container ce53d880821b
+Successfully built 7bde188af06a

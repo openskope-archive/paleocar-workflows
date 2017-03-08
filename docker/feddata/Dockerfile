@@ -15,6 +15,6 @@ RUN echo '***** install curl and ssl development libraries needed by devtools **
     > /tmp/install_feddata.R                                                                        \
  && R --no-save < /tmp/install_feddata.R
 
-USER nobody
+USER skope
 
 CMD echo "Usage: docker run openskope/feddata Rscript <r-script-using-feddata> [r-script-arguments]"

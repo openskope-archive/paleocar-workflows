@@ -1,0 +1,29 @@
+
+% FACT: resource(resource_id, resource_uri).
+resource(1, 'plot_vep_elevation_run/raw/ned/1/n38w109.zip').
+resource(2, 'plot_vep_elevation_run/raw/ned/1/n38w110.zip').
+resource(3, 'plot_vep_elevation_run/extracted/vepiin_ned/vepiin_NED_1.tif').
+resource(4, 'plot_vep_elevation_run/vepiin_ned.pdf').
+
+% FACT: data_resource(data_id, resource_id).
+data_resource(20, 1).
+data_resource(20, 2).
+data_resource(21, 3).
+data_resource(22, 4).
+
+% FACT: uri_variable_value(resource_id, uri_variable_id, uri_variable_value).
+uri_variable_value(1, 1, 'plot_vep_elevation_run').
+uri_variable_value(1, 2, '1').
+uri_variable_value(1, 3, '38').
+uri_variable_value(1, 4, '109').
+uri_variable_value(2, 1, 'plot_vep_elevation_run').
+uri_variable_value(2, 2, '1').
+uri_variable_value(2, 3, '38').
+uri_variable_value(2, 4, '110').
+uri_variable_value(3, 5, 'plot_vep_elevation_run').
+uri_variable_value(3, 6, 'vepiin').
+uri_variable_value(3, 7, '1').
+uri_variable_value(4, 8, 'plot_vep_elevation_run').
+uri_variable_value(4, 9, 'vepiin').
+
+% FACT: log_variable_value(resource_id, log_entry_id, log_variable_id, log_variable_value).
