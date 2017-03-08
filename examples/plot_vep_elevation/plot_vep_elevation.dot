@@ -1,0 +1,69 @@
+digraph Workflow {
+rankdir=TB
+fontname=Helvetica; fontsize=18; labelloc=t
+label="plot.vep.elevation"
+subgraph cluster_workflow_box_outer { label=""; color=black; penwidth=2
+subgraph cluster_workflow_box_inner { label=""; penwidth=0
+node[shape=box style=filled fillcolor="#CCFFCC" peripheries=1 fontname=Helvetica]
+"define.region.to.map"
+"get.elevation.map" [shape=record rankdir=LR label="{<f0> get.elevation.map |<f1> download, mosaic, and crop elevation dataset for the given region}"];
+"plot.mosaic.elevation.map" [shape=record rankdir=LR label="{<f0> plot.mosaic.elevation.map |<f1> save a plot of the elevation map}"];
+node[shape=box style="rounded,filled" fillcolor="#FFFFCC" peripheries=1 fontname=Helvetica]
+"raw.elevation.map.tiles" [shape=record rankdir=LR label="{<f0> raw.elevation.map.tiles |<f1> \{run.dir\}/raw/ned/\{ned.resolution\}/n\{tile.lat\}w\{tile.long\}.zip}"];
+"ned.mosaic.plot" [shape=record rankdir=LR label="{<f0> ned.mosaic.plot |<f1> \{run.dir\}/\{run.label\}_ned.pdf}"];
+"mosaic.elevation.map" [shape=record rankdir=LR label="{<f0> mosaic.elevation.map |<f1> \{run.dir\}/extracted/\{run.label\}_NED_\{ned.resolution\}.tif}"];
+"ned.xmin"
+"ned.xmax"
+"ned.ymin"
+"ned.ymax"
+"run.label"
+"run.dir"
+"ned.resolution"
+"ned.polygon"
+"mosaic.elevation.raster.layer"
+node[shape=box style="rounded,filled" fillcolor="#FCFCFC" peripheries=1 fontname=Helvetica]
+"define.region.to.map" -> "ned.polygon"
+"ned.xmin" -> "define.region.to.map"
+"ned.xmax" -> "define.region.to.map"
+"ned.ymin" -> "define.region.to.map"
+"ned.ymax" -> "define.region.to.map"
+"get.elevation.map" -> "mosaic.elevation.raster.layer"
+"get.elevation.map" -> "raw.elevation.map.tiles"
+"get.elevation.map" -> "mosaic.elevation.map"
+"run.label" -> "get.elevation.map"
+"run.dir" -> "get.elevation.map"
+"ned.resolution" -> "get.elevation.map"
+"ned.polygon" -> "get.elevation.map"
+"plot.mosaic.elevation.map" -> "ned.mosaic.plot"
+"run.label" -> "plot.mosaic.elevation.map"
+"mosaic.elevation.raster.layer" -> "plot.mosaic.elevation.map"
+}}
+subgraph cluster_input_ports_group_outer { label=""; penwidth=0
+subgraph cluster_input_ports_group_inner { label=""; penwidth=0
+node[shape=circle style="rounded,filled" fillcolor="#FFFFFF" peripheries=1 fontname=Helvetica width=0.2]
+"run.dir_input_port" [label=""]
+"run.label_input_port" [label=""]
+"ned.xmin_input_port" [label=""]
+"ned.xmax_input_port" [label=""]
+"ned.ymin_input_port" [label=""]
+"ned.ymax_input_port" [label=""]
+"ned.resolution_input_port" [label=""]
+}}
+subgraph cluster_output_ports_group_outer { label=""; penwidth=0
+subgraph cluster_output_ports_group_inner { label=""; penwidth=0
+node[shape=circle style="rounded,filled" fillcolor="#FFFFFF" peripheries=1 fontname=Helvetica width=0.2]
+"raw.elevation.map.tiles_output_port" [label=""]
+"ned.mosaic.plot_output_port" [label=""]
+"mosaic.elevation.map_output_port" [label=""]
+}}
+"run.dir_input_port" -> "run.dir"
+"run.label_input_port" -> "run.label"
+"ned.xmin_input_port" -> "ned.xmin"
+"ned.xmax_input_port" -> "ned.xmax"
+"ned.ymin_input_port" -> "ned.ymin"
+"ned.ymax_input_port" -> "ned.ymax"
+"ned.resolution_input_port" -> "ned.resolution"
+"raw.elevation.map.tiles" -> "raw.elevation.map.tiles_output_port"
+"ned.mosaic.plot" -> "ned.mosaic.plot_output_port"
+"mosaic.elevation.map" -> "mosaic.elevation.map_output_port"
+}
