@@ -33,7 +33,7 @@ ned.polygon <- polygon_from_extent(raster::extent(ned.xmin, ned.xmax, ned.ymin, 
 # @in ned.resolution @in ned.polygon 
 # @out mosaic.elevation.raster.layer
 # @out raw.elevation.map.tiles @file {run.dir}/raw/ned/{ned.resolution}/n{tile.lat}w{tile.long}.zip
-# @out mosaic.elevation.map @file {run.dir}/extracted/{run.label}_NED_{ned.resolution}.tif
+# @out mosaic.elevation.map @file {run.dir}/extracted/{run.label}_ned/{run.label}_NED_{ned.resolution}.tif
 ned.raw.dir <- paste0(run.dir, '/raw/ned')
 ned.extraction.dir <- paste0(run.dir, '/extracted/', run.label, '_ned')
 mosaic.elevation.raster.layer <- get_ned(template=ned.polygon,
