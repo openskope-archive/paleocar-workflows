@@ -1,0 +1,24 @@
+
+imports:
+
+- classpath:/org/restflow/directors.yaml
+- classpath:/org/restflow/r/types.yaml
+
+components:
+
+- id: stage_mvnp_data
+  type: Workflow
+  properties:
+    director: !ref DataDrivenDirector
+    nodes:
+    - !ref download_nps_data
+
+- id: download_nps_data
+  type: RActorNode
+  properties:
+    actor.usesStepDirectory: true
+    constants:
+      url: http://nrdata.nps.gov/programs/Lands/meve_tracts.zip
+    actor.step: |
+      library(FedData)
+      FedData::download_data(url)
