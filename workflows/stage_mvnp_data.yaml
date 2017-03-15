@@ -19,6 +19,14 @@ components:
     actor.usesStepDirectory: true
     constants:
       url: http://nrdata.nps.gov/programs/Lands/meve_tracts.zip
+      shapefile.object.file: mvnp.rds
     actor.step: |
       library(FedData)
       FedData::download_data(url)
+      utils::unzip('meve_tracts.zip', exdir='./meve_tracts')
+      mvnp <- rgdal::readOGR('./meve_tracts', layer='MEVE_boundary')
+      saveRDS(mvnp, file=shapefile.object.file)
+    actor.outputs:
+      shapefile.object.file: {type: File}
+    outflows:
+        shapefile.object.file: file:/mvnp.rds
