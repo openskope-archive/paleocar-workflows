@@ -11,22 +11,66 @@ components:
   properties:
     director: !ref DataDrivenDirector
     nodes:
-    - !ref download_nps_data
+    - !ref acquire_mnvp_shapefile
+    - !ref acquire_tree_ring_data
 
-- id: download_nps_data
+- id: acquire_mnvp_shapefile
   type: RActorNode
   properties:
     actor.usesStepDirectory: true
     constants:
       url: http://nrdata.nps.gov/programs/Lands/meve_tracts.zip
-      shapefile.object.file: mvnp.rds
+      mvnp.object.file: mvnp.rds
     actor.step: |
       library(FedData)
       FedData::download_data(url)
       utils::unzip('meve_tracts.zip', exdir='./meve_tracts')
       mvnp <- rgdal::readOGR('./meve_tracts', layer='MEVE_boundary')
-      saveRDS(mvnp, file=shapefile.object.file)
+      saveRDS(mvnp, file=mvnp.object.file)
     actor.outputs:
-      shapefile.object.file: {type: File}
+      mvnp.object.file: {type: File}
     outflows:
-        shapefile.object.file: file:/mvnp.rds
+        mvnp.object.file: file:/mvnp.rds
+
+- id: acquire_tree_ring_data
+  type: RActorNode
+  properties:
+    actor.usesStepDirectory: true
+    stepsOnce: true
+    actor.inputs:
+      calibration.start.year: {default: 1924}
+      calibration.end.year: {default: 1983}
+      prediction.start.year: {default: 1}
+      prediction.end.year: {default: 2000}
+      tree.buffer: {default: 10}
+      itrdb.object.file: {type: File, default: itrdb.rds}
+      mvnp.object.file: {type: File }
+    inflows:
+      mvnp.object.file: file:/mvnp.rds
+    actor.step: |
+
+      library(FedData)
+
+      calibration.years <- calibration.start.year:calibration.end.year
+      prediction.years <- prediction.start.year:prediction.end.year
+  
+      mvnp <- readRDS(mvnp.object.file)
+
+      treePoly <- suppressWarnings(rgeos::gBuffer(mvnp, width=tree.buffer, quadsegs=1000))
+
+      itrdb <- FedData::get_itrdb(template=treePoly, label="MVNP_PLUS_10DEG", raw.dir="./raw", 
+                                  extraction.dir="./extracted", recon.years=prediction.years,
+                                  calib.years=calibration.years, measurement.type="Ring Width",
+                                  chronology.type="ARSTND", force.redo = TRUE)
+
+      Encoding(levels(itrdb$metadata$NAME)) <- "latin1"
+      levels(itrdb$metadata$NAME) <- iconv(levels(itrdb$metadata$NAME), "latin1", "UTF-8")
+      Encoding(levels(itrdb$metadata$CONTRIBUTOR)) <- "latin1"
+      levels(itrdb$metadata$CONTRIBUTOR) <- iconv(levels(itrdb$metadata$CONTRIBUTOR), "latin1", "UTF-8")
+
+      saveRDS(itrdb, file=itrdb.object.file)
+
+    actor.outputs:
+      itrdb.object.file: {type: File}
+    outflows:
+      itrdb.object.file: file:/itrdb.rds
