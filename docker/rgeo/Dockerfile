@@ -1,4 +1,4 @@
-from openskope/gdal
+from openskope/gdal:0.1.0
 
 ARG DEBIAN_FRONTEND=noninteractive
 
